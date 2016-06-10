@@ -91,6 +91,7 @@ public class EmployeeListFragment extends Fragment implements AfterPraseResult {
             adapter.getData().clear();
             adapter.getData().addAll(data);
         }
+
         adapter.notifyDataSetChanged();
         progress.dismiss();
     }
