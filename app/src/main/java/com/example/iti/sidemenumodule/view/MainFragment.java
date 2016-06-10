@@ -167,11 +167,7 @@ public class MainFragment extends Fragment implements AfterPraseResult {
         private void moveToProductFragment(int selectedItemId) {
             Fragment mFragment = null;
             FragmentManager mFragmentManager = myContext.getSupportFragmentManager();
-            if (mBundle.getInt(FRAGMENT_FLAG) == 1) {
-                mFragment = new requestProductFragment(selectedItemId);
-            } else {
                 mFragment = new PortfoliosFragment(selectedItemId);
-            }
             if (mFragment != null) {
                 mFragmentManager.beginTransaction().replace(R.id.container, mFragment).addToBackStack("main_fragment").commit();
             }
