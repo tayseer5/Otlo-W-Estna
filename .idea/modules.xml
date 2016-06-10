@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SideMenuModule.iml" filepath="$PROJECT_DIR$/SideMenuModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Otlo-W-Estna.iml" filepath="$PROJECT_DIR$/Otlo-W-Estna.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
-

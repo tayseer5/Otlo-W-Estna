@@ -19,6 +19,7 @@ public class URLManager {
     public static  final  String loginURL = ip+"/itiProject/rest/authentication/login";
     public static final String registrationURL = ip+"/itiProject/rest/authentication/register";
     public static final String skillsURl = ip+"/itiProject/rest/authentication/getSkills";
+    public static String postProposalURL=ip+"/itiProject/rest/porposa/insertPorposer";
 }
 
 

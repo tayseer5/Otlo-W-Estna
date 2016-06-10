@@ -83,10 +83,14 @@ public class EmployeeListFragment extends Fragment implements AfterPraseResult {
 
     @Override
     public void afterParesResult(Object list,int code) {
-        data=(ArrayList)list;
-        adapter.getData().clear();
-        adapter.getData().addAll(data);
-        // fire the event
+        if(list==null||adapter.getData()==null) {
+
+            // fire the event
+        }else{
+            data = (ArrayList) list;
+            adapter.getData().clear();
+            adapter.getData().addAll(data);
+        }
         adapter.notifyDataSetChanged();
         progress.dismiss();
     }
