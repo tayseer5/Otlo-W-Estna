@@ -107,5 +107,7 @@ public class EmployeeListFragment extends Fragment implements AfterPraseResult {
                     }
                 });
         alertDialog.show();
+
+
     }
 }
