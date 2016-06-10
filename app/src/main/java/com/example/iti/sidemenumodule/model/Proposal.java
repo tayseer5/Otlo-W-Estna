@@ -8,7 +8,7 @@ import java.util.Date;
 public class Proposal {
     private Integer porpId;
     private Integer projectsforusers;
-    private Users users;
+    private Integer users;
     private int price;
     private Date startDatePor;
     private Date deadLinePor;
@@ -30,11 +30,11 @@ public class Proposal {
         this.projectsforusers = projectsforusers;
     }
 
-    public Users getUsers() {
+    public Integer getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(Integer users) {
         this.users = users;
     }
 

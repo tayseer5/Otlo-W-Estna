@@ -78,7 +78,7 @@ public class JobsManger implements AfterAsynchronous {
     public void afterExecute(String message, int code) {
         if (code == 1) {
             jobsList = parseJson(message);
-            view.afterParesResult(jobsList,code);
+            view.afterParesResult(jobsList, code);
 
         } else if (code == 2) {
             try {
@@ -133,10 +133,11 @@ public class JobsManger implements AfterAsynchronous {
                 }
                 String imagesJsonArrayString = projectObject.getString("projectsimageses");
                 JSONArray imagesJsonArray = new JSONArray(imagesJsonArrayString);
-                String imageObjectString = imagesJsonArray.getString(0);
-                JSONObject imageObject = new JSONObject(imageObjectString);
-                project.setImageURL(imageObject.getString("imageUrl"));
-
+                if(imagesJsonArray.length()>0) {
+                    String imageObjectString = imagesJsonArray.getString(0);
+                    JSONObject imageObject = new JSONObject(imageObjectString);
+                    project.setImageURL(imageObject.getString("imageUrl"));
+                }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
                 if(detailsesJsonArray.length()>0) {
@@ -189,15 +190,18 @@ public class JobsManger implements AfterAsynchronous {
                 }
                 String imagesJsonArrayString = projectObject.getString("projectsimageses");
                 JSONArray imagesJsonArray = new JSONArray(imagesJsonArrayString);
-                String imageObjectString = imagesJsonArray.getString(0);
-                JSONObject imageObject = new JSONObject(imageObjectString);
-                project.setImageURL(imageObject.getString("imageUrl"));
-
+                if(imagesJsonArray.length()>0) {
+                    String imageObjectString = imagesJsonArray.getString(0);
+                    JSONObject imageObject = new JSONObject(imageObjectString);
+                    project.setImageURL(imageObject.getString("imageUrl"));
+                }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
-                String detailsesObjectString = detailsesJsonArray.getString(0);
-                JSONObject detailsesObject = new JSONObject(detailsesObjectString);
-                project.setStatusOfProject(detailsesObject.getString("statusOfProjects"));
+                if(detailsesJsonArray.length()>0) {
+                    String detailsesObjectString = detailsesJsonArray.getString(0);
+                    JSONObject detailsesObject = new JSONObject(detailsesObjectString);
+                    project.setStatusOfProject(detailsesObject.getString("statusOfProjects"));
+                }
 
                 // Log.i("gsontest", project.getProjectName());
                 returnArrayList.add(project);
@@ -246,15 +250,18 @@ public class JobsManger implements AfterAsynchronous {
                 }
                 String imagesJsonArrayString = projectObject.getString("projectsimageses");
                 JSONArray imagesJsonArray = new JSONArray(imagesJsonArrayString);
-                String imageObjectString = imagesJsonArray.getString(0);
-                JSONObject imageObject = new JSONObject(imageObjectString);
-                project.setImageURL(imageObject.getString("imageUrl"));
-
+                if(imagesJsonArray.length()>0) {
+                    String imageObjectString = imagesJsonArray.getString(0);
+                    JSONObject imageObject = new JSONObject(imageObjectString);
+                    project.setImageURL(imageObject.getString("imageUrl"));
+                }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
-                String detailsesObjectString = detailsesJsonArray.getString(0);
-                JSONObject detailsesObject = new JSONObject(detailsesObjectString);
-                project.setStatusOfProject(detailsesObject.getString("statusOfProjects"));
+                if(detailsesJsonArray.length()>0) {
+                    String detailsesObjectString = detailsesJsonArray.getString(0);
+                    JSONObject detailsesObject = new JSONObject(detailsesObjectString);
+                    project.setStatusOfProject(detailsesObject.getString("statusOfProjects"));
+                }
 
                 // Log.i("gsontest", project.getProjectName());
                 returnArrayList.add(project);

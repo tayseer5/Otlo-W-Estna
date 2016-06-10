@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.iti.sidemenumodule.view.ProposalDetailsFragment" android:padding="24dp"
+    android:orientation="vertical">
+    <EditText
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:minLines="2"
+        android:gravity="top|right"
+        android:maxLines="6"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/light_black"
+        android:hint="@string/proposal_details_hint"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:scrollbars="vertical"
+        android:id="@+id/proposal_details_edittext"
+        />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:background="@color/light_gray"
+        android:elevation="1dp"
+        tools:context="com.example.iti.sidemenumodule.view.ProjectDetails"
+        android:gravity="center">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
+            android:paddingEnd="2dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:layout_weight="1"
+            tools:context="com.example.iti.sidemenumodule.view.ProjectDetails"
+            android:gravity="center"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/proposal_budget_edittext"
+                android:textSize="18sp"
+                android:textColor="@color/light_black"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView android:text="@string/post_project_buget_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/light_black"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+        </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/post_offer"
+        android:elevation="2dp"
+        android:background="@color/light_green"
+        android:textSize="24dp"
+        android:textColor="@color/light_black"
+        android:layout_gravity="bottom"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/post_proposal_button"
+        />
+</LinearLayout>

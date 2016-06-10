@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.iti.sidemenumodule.R;
@@ -62,6 +65,17 @@ public class SingleProjectFragment extends Fragment {
         statusTextView.setText(project.getStatusOfProject());
         TextView discTextView=(TextView) rootView.findViewById(R.id.project_description);
         discTextView.setText(project.getProjectDescription());
+        Button post_offerButton=(Button) rootView.findViewById(R.id.post_offer_button);
+        post_offerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new ProposalDetailsFragment(project);
+                FragmentManager manager=myContext.getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.container, fragment, "Project");
+                transaction.addToBackStack("projectFragment").commit();
+            }
+        });
         return rootView;
     }
 

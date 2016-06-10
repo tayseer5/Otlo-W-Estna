@@ -42,7 +42,7 @@ public class ProposalCustomAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.employee_single_row, parent, false);
+        View rowView= inflater.inflate(R.layout.proposal_row, parent, false);
         TextView nameTextView=(TextView)rowView.findViewById(R.id.employee_name_textview);
         TextView titleTextView=(TextView)rowView.findViewById(R.id.employee_title_textview);
         RatingBar ratingBar=(RatingBar)rowView.findViewById(R.id.rating);
