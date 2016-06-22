@@ -2,9 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-            <item name="colorPrimary">@color/nliveo_blue_colorPrimary</item>
-            <item name="colorPrimaryDark">@color/nliveo_blue_colorPrimaryDark</item>
-            <item name="colorAccent">@color/nliveo_blue_colorPrimaryDark</item>
+            <item name="colorPrimary">@color/light_green</item>
+            <item name="colorPrimaryDark">@color/light_green</item>
+            <item name="colorAccent">@color/light_green</item>
     </style>
     <style name="nLiveoDrawer" parent="Theme.nLiveo">
         <!-- Customize your theme here. -->

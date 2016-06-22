@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,16 @@ import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.CategoryManger;
+import com.example.iti.sidemenumodule.daos.SkillsManager;
 import com.example.iti.sidemenumodule.datamanger.DataManger;
+import com.example.iti.sidemenumodule.helperclasses.DialogResponce;
 import com.example.iti.sidemenumodule.helperclasses.EmployeeCustomAdapter;
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Employee;
 import com.example.iti.sidemenumodule.model.Project;
+import com.example.iti.sidemenumodule.model.Skills;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.google.gson.Gson;
 import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
@@ -33,7 +38,7 @@ import java.util.ArrayList;
  * Created by Ahmed_telnet on 5/30/2016.
  */
 
-public class PostProjectFragment extends Fragment implements AfterPraseResult{
+public class PostProjectFragment extends Fragment implements DialogResponce,AfterPraseResult{
     View rootView;
     FragmentActivity myContext;
     Button nextButton;
@@ -44,6 +49,7 @@ public class PostProjectFragment extends Fragment implements AfterPraseResult{
     Project project;
     ArrayList<Category> categoryList;
     String[] categoryNames;
+    ArrayList<Skills> selectedList;
     public PostProjectFragment() {
         // Required empty public constructor
     }
@@ -62,10 +68,18 @@ public class PostProjectFragment extends Fragment implements AfterPraseResult{
         // Inflate the layout for this fragment
         categoryList=new ArrayList<>();
         rootView = inflater.inflate(R.layout.postproject_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         nextButton=(Button)rootView.findViewById(R.id.next_button);
         titleEditText=(EditText)rootView.findViewById(R.id.project_title_edittext);
         detailsEditText=(EditText)rootView.findViewById(R.id.project_details_edittext);
-        skillsEditText=(EditText)rootView.findViewById(R.id.project_skills_edittext);
+       // skillsEditText=(EditText)rootView.findViewById(R.id.project_skills_edittext);
+        Button skillsButton = (Button) rootView.findViewById(R.id.choiseSkills);
+        skillsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSkills();
+            }
+        });
         project=new Project();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +87,21 @@ public class PostProjectFragment extends Fragment implements AfterPraseResult{
             public void onClick(View view) {
                 project.setProjectName(titleEditText.getText().toString());
                 project.setProjectDescription(detailsEditText.getText().toString());
-                project.setProjectSkills(skillsEditText.getText().toString());
+                if (!selectedList.isEmpty()) {
+                    String skillsString="";
+                    for(int i=0;i<selectedList.size();i++)
+                    {
+                        skillsString+=selectedList.get(i).getSkillId();
+                        if(i!=selectedList.size()-1)
+                        {
+                            skillsString+=",";
+                        }
+                    }
+                   project.setProjectSkills(skillsString);
+                } else {
+                    project.setProjectSkills("1,2,3");
+                }
+
                 SecondPostProjectFragment secondPostProjectFragment=new SecondPostProjectFragment(project);
                 FragmentManager manager=myContext.getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
@@ -107,6 +135,11 @@ public class PostProjectFragment extends Fragment implements AfterPraseResult{
         return rootView;
     }
 
+    private void getSkills() {
+        SkillsManager skillsManager = new SkillsManager(this.getActivity(),this);
+        skillsManager.getSkills(2);
+    }
+
     private String[] getCategoryNames()
     {
         String[] names=new String[categoryList.size()];
@@ -135,11 +168,38 @@ public class PostProjectFragment extends Fragment implements AfterPraseResult{
 
     @Override
     public void afterParesResult(Object list,int code) {
-        categoryList=(ArrayList)list;
-    }
+        if(code==2)
+        {
+            showSkillsDialog((ArrayList<Skills>) list);
+        }
+        else {
+            categoryList = (ArrayList) list;
+        }
+        }
 
     @Override
     public void errorParesResult(String errorMessage,int code) {
 
     }
+
+
+    private void showSkillsDialog(ArrayList<Skills> allSkills)
+    {
+        Gson gson = new Gson();
+        String allSkillsJsonArray =gson.toJson(allSkills);
+        Skills_Alert_Dialog_fragment dialogFragment = new Skills_Alert_Dialog_fragment();
+        Bundle args = new Bundle();
+        args.putString("skills", allSkillsJsonArray);
+        dialogFragment.setArguments(args);
+        dialogFragment.setTargetFragment(this,0);
+        dialogFragment.show(getFragmentManager(), "skills");
+
+    }
+
+    @Override
+    public void result(ArrayList<Skills> selectedList) {
+        this.selectedList=selectedList;
+
+    }
+
 }

@@ -25,6 +25,7 @@ import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.CategoryManger;
 import com.example.iti.sidemenumodule.daos.EmployeeManger;
 import com.example.iti.sidemenumodule.datamanger.DataManger;
+import com.example.iti.sidemenumodule.helperclasses.EmployeeCustomAdapter;
 import com.example.iti.sidemenumodule.helperclasses.MyData;
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Message;
@@ -66,7 +67,7 @@ public class MainFragment extends Fragment implements AfterPraseResult {
         data = new ArrayList<>();
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+        TypefaceHelper.typeface(rootView);
         myOnClickListener = new MyOnClickListener(myContext);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -110,10 +111,9 @@ public class MainFragment extends Fragment implements AfterPraseResult {
 
     @Override
     public void afterParesResult(Object list,int code) {
-        data=(ArrayList)list;
-        adapter.getData().clear();
-        adapter.getData().addAll(data);
-        // fire the event
+        data = (ArrayList) list;
+        adapter = new CustomAdapter(myContext, data);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         progress.dismiss();
     }
@@ -155,13 +155,12 @@ public class MainFragment extends Fragment implements AfterPraseResult {
                     = (TextView) viewHolder.itemView.findViewById(R.id.textViewName);
             String selectedName = (String) textViewName.getText();
             int selectedItemId = -1;
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if (selectedName.equals(MyData.nameArray[i])) {
-                    selectedItemId = MyData.id_[i];
+            for (int i = 0; i < data.size(); i++) {
+                if (selectedName.equals(data.get(i).getCategoryName())) {
+                    selectedItemId = data.get(i).getCategoryId();
                 }
             }
             moveToProductFragment(selectedItemId);
-
         }
 
         private void moveToProductFragment(int selectedItemId) {
@@ -172,8 +171,6 @@ public class MainFragment extends Fragment implements AfterPraseResult {
                 mFragmentManager.beginTransaction().replace(R.id.container, mFragment).addToBackStack("main_fragment").commit();
             }
         }
-
-
     }
 
 

@@ -1,8 +1,11 @@
 package com.example.iti.sidemenumodule.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import com.norbsoft.typefacehelper.TypefaceCollection;
 import com.norbsoft.typefacehelper.TypefaceHelper;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +38,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            TypefaceHelper.typeface(itemView);
             this.textViewName = (TextView) itemView.findViewById(R.id.textViewName);
             this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
         }
@@ -48,7 +54,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cards_layout, parent, false);
-
+        TypefaceHelper.typeface(view);
         view.setOnClickListener(MainFragment.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
@@ -60,10 +66,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         TextView textViewName = holder.textViewName;
         ImageView imageView = holder.imageViewIcon;
+        Log.e("image from cat 3", dataSet.get(listPosition).getImageOfCategoryUrl());
         textViewName.setText(dataSet.get(listPosition).getCategoryName());
         Picasso.with(context)
                 .load(dataSet.get(listPosition).getImageOfCategoryUrl())
-                .placeholder(R.drawable.cat1)
+                .placeholder(R.drawable.cat121)
                 .into(imageView);
     }
 
@@ -71,7 +78,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public int getItemCount() {
         return dataSet.size();
     }
-
     public List<Category> getData() {
         return dataSet;
     }

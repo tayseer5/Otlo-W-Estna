@@ -22,6 +22,7 @@ private String imagePath;
 
     public ImageViewPagerAdapter(Context context,String imagePath) {
         this.context = context;
+        this.imagePath=imagePath;
 //      Timer  swipeTimer = new Timer();
 //        swipeTimer.schedule(new TimerTask() {
 //
@@ -62,6 +63,7 @@ private String imagePath;
 
         imageView.setPadding(padding, padding, padding, padding);
 
+        Log.i("swipe images", imagePath);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
         Picasso.with(context)

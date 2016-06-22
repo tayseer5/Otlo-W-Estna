@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.model.Project;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class ProjectSimpleTabView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_project_simple_tab_view, container, false);
+        TypefaceHelper.typeface(rootView);
         toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 

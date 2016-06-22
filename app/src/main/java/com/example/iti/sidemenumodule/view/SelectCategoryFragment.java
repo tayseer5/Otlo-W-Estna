@@ -24,6 +24,7 @@ import com.example.iti.sidemenumodule.helperclasses.SelectCategoryCustomAdapter;
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Employee;
 import com.example.iti.sidemenumodule.model.Portfolio;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,7 @@ public class SelectCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_select_category, container, false);
+        TypefaceHelper.typeface(rootView);
         listView = (ListView) rootView.findViewById(R.id.select_category_listview);
         data = DataManger.getcategories();
         SelectCategoryCustomAdapter adapter = new SelectCategoryCustomAdapter(myContext, data);

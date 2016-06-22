@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.helperclasses.MyPostListAdaptour;
 import com.example.iti.sidemenumodule.model.Mypost;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class WorkStreamFragment extends Fragment implements AdapterView.OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.work_strem_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         ArrayList<Mypost> myposts  = new ArrayList<>();
         for (int i =0 ;i<10;i++)
         {

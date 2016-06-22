@@ -21,6 +21,7 @@ import com.example.iti.sidemenumodule.model.Skills;
 import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
 import com.google.gson.Gson;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.signup_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         email= (EditText) rootView.findViewById(R.id.signUpEmail);
         password = (EditText) rootView.findViewById(R.id.signUpPassword);
         rePassword = (EditText) rootView.findViewById(R.id.signUpRePassword);
@@ -83,10 +85,11 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
     }
 
     private void signUpInformationCollection() {
+        Log.e("signUpInformationCollection","1");
         if(ruleAgree.isChecked())
-        {
+        { Log.e("signUpInformationCollection","2");
             if (password.getText().toString().trim().equals(rePassword.getText().toString())&&!password.getText().toString().trim().equals(null)&&!password.getText().toString().trim().equals(""))
-            {
+            { Log.e("signUpInformationCollection","3");
                 users = new Users();
                 if(android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()&&!email.getText().toString().trim().equals(null)&&!email.getText().toString().trim().equals("")) {
                     if(!userName.getText().toString().trim().equals(null)&&!userName.getText().toString().trim().equals("")) {
@@ -99,18 +102,21 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
                         } else {
 
                             //alert select skills
+                            Log.e("signUpInformationCollection","4");
                         }
                     }
                     else
                     {
 
                         //alert to user name
+                        Log.e("signUpInformationCollection","5");
                     }
                 }
                 else
                 {
 
                     //alert mail
+                    Log.e("signUpInformationCollection","6");
                 }
 
             }
@@ -118,6 +124,7 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
             {
 
                 //alert passwords identical
+                Log.e("signUpInformationCollection","7");
             }
 
         }
@@ -129,6 +136,7 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
     }
 
     private void signUpProcess(Users users) {
+        Log.e("signUpProcess","signUpProcess");
         UserManager userManager = new UserManager(this.getActivity(),this);
         userManager.registration(users,1);
     }
@@ -159,7 +167,7 @@ public class SignUpFragment extends Fragment implements DialogResponce, View.OnC
                     loginProcess(users);
                 }
                 else{
-                    //error msg
+                    Log.e("not reg","ge");
                 }
 
                 break;

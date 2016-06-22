@@ -1,11 +1,13 @@
 package com.example.iti.sidemenumodule.controller;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,12 +17,14 @@ import android.view.Menu;
 import android.view.View;
 
 import com.example.iti.sidemenumodule.model.Users;
+import com.example.iti.sidemenumodule.network_manager.URLManager;
 import com.example.iti.sidemenumodule.view.JobsFragment;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.view.MyProjectListFragment;
 import com.google.gson.Gson;
 import com.norbsoft.typefacehelper.TypefaceCollection;
 import com.norbsoft.typefacehelper.TypefaceHelper;
+import com.squareup.picasso.Picasso;
 //import com.example.iti.sidemenumodule.view.WorkStreamFragment;
 
 import br.liveo.interfaces.OnItemClickListener;
@@ -36,11 +40,14 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
     @Override
     public void onInt(Bundle bundle) {
         Log.e("in init", "yes");
-
-//Menu Elements
-        mHelpLiveo = new HelpLiveo();
+        drawSideMenu();
+        TypefaceHelper.typeface(this);
+    }
+    private void drawSideMenu() {
+        //Menu Elements
+        HelpLiveo mHelpLiveo = new HelpLiveo();
         mHelpLiveo.add(getString(R.string.homepage), R.mipmap.home);
-       // mHelpLiveo.addSeparator(); // Item separator
+        // mHelpLiveo.addSeparator(); // Item separator
         mHelpLiveo.add(getString(R.string.show_profile), R.mipmap.briefcase);
         mHelpLiveo.add(getString(R.string.dash_board), R.mipmap.work_flow);
         mHelpLiveo.add(getString(R.string.post_project), R.mipmap.job_post);
@@ -55,13 +62,22 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
         }
         else {
             mHelpLiveo.add(getString(R.string.log_out), R.drawable.ic_android_black_24dp);
-            //This is the Header of side menu
-            this.userName.setText("تيسير ابراهيم انور");
-            this.userEmail.setText("tayseer.anwar92@gmail.com");
-            this.userPhoto.setImageResource(R.drawable.ic_rudsonlive);
             this.userBackground.setImageResource(R.drawable.ic_user_background_first);
             this.userBackground.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
+            //This is the Header of side menu
+            MyApplication userObject = (MyApplication) getApplicationContext();
+            if(userObject!=null) {
+                Users user = userObject.getUser();
+                this.userName.setText(user.getUserName());
+                this.userEmail.setText(user.getUserEmail());
+                //this.userPhoto.setImageResource(R.drawable.ic_rudsonlive);
+                Picasso.with(this)
+                        .load(URLManager.ip+"/itiProject"+user.getUserImageUrl())
+                        .placeholder(R.drawable.ic_rudsonlive)
+                        .into(userPhoto);
+            }
         }
+        mHelpLiveo.add(getString(R.string.settings), R.drawable.ic_android_black_24dp);
         mHelpLiveo.add(getString(R.string.about), R.drawable.ic_android_black_24dp);
         with(this,1) // default theme is dark ,R.color.nliveo_black
                 .startingPosition(0) //Starting position in the list
@@ -70,8 +86,7 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
                 .setOnPrepareOptionsMenu(onPrepare)
                 .removeFooter()
                 .build();
-
-
+        TypefaceHelper.typeface(this);
     }
     private View.OnClickListener onClickPhoto = new View.OnClickListener() {
         @Override
@@ -88,6 +103,7 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
             Log.e("onPrepareOptionsMenu","onPrepareOptionsMenu");
         }
     };
+
 
 
     @Override
@@ -138,15 +154,16 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
         toolbar=getToolbar();
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.light_green));
-        toolbar.setElevation((float) 0.0);
+      //  @TargetApi()
+      //  toolbar.setElevation((float) 0.0);
         toolbar.setTitleTextColor(getResources().getColor(R.color.light_gray));
         toolbar.inflateMenu(R.menu.menu_protoflio);
 //        TypefaceHelper.typeface(this);
-        TypefaceCollection typeface=new TypefaceCollection.Builder()
-                .set(Typeface.NORMAL,Typeface.createFromAsset(getAssets(),"fonts/DroidKufi-Regular.ttf"))
-                .set(Typeface.BOLD, Typeface.createFromAsset(getAssets(), "fonts/DroidKufi-Bold.ttf"))
-                .create();
-        TypefaceHelper.init(typeface);
+//        TypefaceCollection typeface=new TypefaceCollection.Builder()
+//                .set(Typeface.NORMAL,Typeface.createFromAsset(getAssets(),"fonts/DroidKufi-Regular.ttf"))
+//                .set(Typeface.BOLD, Typeface.createFromAsset(getAssets(), "fonts/DroidKufi-Bold.ttf"))
+//                .create();
+//        TypefaceHelper.init(typeface);
     }
     private boolean IsNotLogin()
     {
@@ -159,12 +176,17 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
             Users user = gson.fromJson(sharedString,Users.class);
             if (user!=null)
             {Log.e("not","null");
-                Log.e("is",user.getUserEmail());}
+                Log.e("is",user.getUserEmail());
+                Log.e("is",getApplicationContext().getClass()+"");
+                MyApplication appState = (MyApplication)getApplicationContext();
+                appState.setUser(user);}
             else
-            {}
-            Log.e("is",getApplicationContext().getClass()+"");
-            MyApplication appState = (MyApplication)getApplicationContext();
-            appState.setUser(user);
+            {
+                Log.e("is null",getApplicationContext().getClass()+"");
+                MyApplication appState = (MyApplication)getApplicationContext();
+                appState.setUser(null);
+            }
+
         }
         return sharedString.contentEquals("Not login");
     }
@@ -179,6 +201,8 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
     protected void onPostResume() {
         Log.e("onPostResume","onPostResume");
         super.onPostResume();
+        toolbar=getToolbar();
+       // toolbar.setElevation((float) 0.0);
     }
 
     @Override
@@ -196,10 +220,12 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
 
         }
         super.onRestart();
+       // toolbar.setElevation((float) 0.0);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         with(this,1).recreate();
+     //   toolbar.setElevation((float) 0.0);
     }
 }

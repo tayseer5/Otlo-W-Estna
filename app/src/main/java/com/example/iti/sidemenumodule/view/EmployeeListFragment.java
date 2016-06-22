@@ -21,6 +21,7 @@ import com.example.iti.sidemenumodule.helperclasses.EmployeeCustomAdapter;
 import com.example.iti.sidemenumodule.model.Employee;
 import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class EmployeeListFragment extends Fragment implements AfterPraseResult {
         data=new ArrayList<>();
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.employeelist_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         listView = (ListView) rootView.findViewById(R.id.employee_listview);
         progress = new ProgressDialog(myContext,R.style.MyTheme);
         progress.setCancelable(false);
@@ -83,15 +85,9 @@ public class EmployeeListFragment extends Fragment implements AfterPraseResult {
 
     @Override
     public void afterParesResult(Object list,int code) {
-        if(list==null||adapter.getData()==null) {
-
-            // fire the event
-        }else{
-            data = (ArrayList) list;
-            adapter.getData().clear();
-            adapter.getData().addAll(data);
-        }
-
+        data = (ArrayList) list;
+        adapter = new EmployeeCustomAdapter(myContext, data);
+        listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         progress.dismiss();
     }

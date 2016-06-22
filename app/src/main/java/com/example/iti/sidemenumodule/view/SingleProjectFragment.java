@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.helperclasses.ImageViewPagerAdapter;
 import com.example.iti.sidemenumodule.model.Project;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -50,6 +51,7 @@ public class SingleProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_single_project, container, false);
+        TypefaceHelper.typeface(rootView);
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
         ImageViewPagerAdapter adapter = new ImageViewPagerAdapter(myContext,project.getImageURL());
         viewPager.setAdapter(adapter);

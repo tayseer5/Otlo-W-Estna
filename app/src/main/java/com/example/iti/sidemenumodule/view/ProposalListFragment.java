@@ -20,6 +20,7 @@ import com.example.iti.sidemenumodule.helperclasses.EmployeeCustomAdapter;
 import com.example.iti.sidemenumodule.helperclasses.ProposalCustomAdapter;
 import com.example.iti.sidemenumodule.model.Proposal;
 import com.example.iti.sidemenumodule.model.Users;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class ProposalListFragment extends Fragment {
         data=new ArrayList<>();
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_proposal_list, container, false);
+        TypefaceHelper.typeface(rootView);
         listView = (ListView) rootView.findViewById(R.id.proposal_listview);
         adapter = new ProposalCustomAdapter(myContext, data);
         listView.setAdapter(adapter);

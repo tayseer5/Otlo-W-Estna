@@ -9,6 +9,7 @@ public class Employee {
     private double rate;
     private int image;
 
+    public Employee(){}
 
     public Employee(String name, String title, double rate, int image) {
         this.name = name;

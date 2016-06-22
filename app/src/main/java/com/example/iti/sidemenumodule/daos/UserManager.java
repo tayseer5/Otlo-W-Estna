@@ -50,10 +50,10 @@ public class UserManager implements AfterAsynchronous {
         RequestParams requestParam = new RequestParams();
         requestParam.add("userEmail", userData.getUserEmail());
         requestParam.add("password", userData.getPassword());
-        requestParam.add("gender", "");
+        requestParam.add("gender", "true");
         requestParam.add("userName",userData.getUserName());
-        requestParam.add("userImage", "");
-        requestParam.add("0", "");
+        requestParam.add("name", "");
+        requestParam.add("content","");
         requestParam.add("country", "");
         requestParam.add("governorate", "");
         requestParam.add("ciry", "");
@@ -76,8 +76,38 @@ public class UserManager implements AfterAsynchronous {
 
     }
 
-    public void updateUser(Users userNewData) {
-
+    public void updateUser(Users userNewData, int code) {
+        Log.e("here","8");
+        this.code=code;
+        HttpClientConn userUpdateConnection = new HttpClientConn(this, context);
+        RequestParams requestParam = new RequestParams();
+//        requestParam.add("uId",userNewData.getUserId().toString());
+        requestParam.add("uId","5");
+//        requestParam.add("userEmail", userNewData.getUserEmail());
+        requestParam.add("userEmail","tayseer@yahoo.com");
+        if (userNewData.isGender()) {
+            requestParam.add("gender", "true");
+        }else
+        {
+            requestParam.add("gender", "false");
+        }
+        requestParam.add("userName",userNewData.getUserName());
+        requestParam.add("name", "test.jpg");
+        requestParam.add("content",userNewData.getUserImageUrl());
+        requestParam.add("governorate", "gov");
+        requestParam.add("ciry", userNewData.getCity());
+        requestParam.add("street", userNewData.getStreet());
+        requestParam.add("summery", userNewData.getSummery());
+        requestParam.add("Title", userNewData.getProfessinalTiltle());
+        requestParam.add("identifire", " ");
+        requestParam.add("mobiles","1225,155 ");
+        requestParam.add("phones", " 123,555 ");
+        String skills = "";
+//        for (int i=0;i<userNewData.getUserSkills().size();i++)
+//        {
+//            skills= skills.concat(userNewData.getUserSkills().get(i).getSkillId()+",");
+//        }
+        userUpdateConnection.RequestService(URLManager.updateURL, requestParam, code, null, URLManager.postConnectionType);
     }
 
     public void uploadPhoto(Context context, String encoded_image) {
@@ -92,6 +122,7 @@ public class UserManager implements AfterAsynchronous {
     @Override
     public void afterExecute(String response, int code) {
         Log.e("code s", code + "");
+        code=this.code;
 
         switch (code) {
             case 0:
@@ -104,6 +135,7 @@ public class UserManager implements AfterAsynchronous {
                 break;
             case 2:
                 //call update process
+                Log.e("update", response);
                 break;
             case 3:
                 //test upload image
@@ -122,6 +154,7 @@ public class UserManager implements AfterAsynchronous {
     @Override
     public void errorInExecute(String errorMessage) {
         Log.e("code e",code+"");
+
         switch (code) {
             case 0:
                 //call login process
@@ -132,7 +165,7 @@ public class UserManager implements AfterAsynchronous {
                 Log.e("errorMessage", errorMessage);
                 break;
             case 2:
-                //call update process
+                Log.e("update", errorMessage);
                 break;
             case 3:
                 //test upload image
@@ -152,6 +185,7 @@ public class UserManager implements AfterAsynchronous {
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
         JsonObject myJsonObject = parser.parse(response).getAsJsonObject();
+        Log.e("registrationProcess",response);
         JsonElement output =myJsonObject.get("output");
         afterPraseResult.afterParesResult(output.getAsString().trim(),code);
     }
@@ -159,9 +193,10 @@ public class UserManager implements AfterAsynchronous {
     {
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
+        Log.e("loginProcess",response);
         JsonObject myJsonObject = parser.parse(response).getAsJsonObject();
         JsonElement message =myJsonObject.get("message");
-        if (message.getAsString().trim().contains("true")) {
+        if (message.getAsString().trim().contains("login Succesfuly")) {
             JsonObject user = myJsonObject.getAsJsonObject("user");
             if (user!=null)
             {

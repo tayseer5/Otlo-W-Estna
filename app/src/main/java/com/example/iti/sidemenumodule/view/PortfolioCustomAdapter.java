@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Portfolio;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ahmed_telnet on 5/23/2016.
@@ -22,7 +24,6 @@ public class PortfolioCustomAdapter extends RecyclerView.Adapter<PortfolioCustom
 
     private ArrayList<Portfolio> dataSet;
 
-    private String fontPath = "fonts/NotoNaskhArabic-Regular.ttf";
     private Context context;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -54,15 +55,21 @@ public class PortfolioCustomAdapter extends RecyclerView.Adapter<PortfolioCustom
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
 
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         ImageView imageView = holder.imageViewIcon;
       //  textViewName.setText(dataSet.get(listPosition).getName());
-        imageView.setImageResource(dataSet.get(listPosition).getImage());
+        Picasso.with(context)
+                .load(dataSet.get(listPosition).getImage())
+                .placeholder(R.drawable.proudect)
+                .into(imageView);
     }
 
     @Override
     public int getItemCount() {
         return dataSet.size();
+    }
+
+    public List<Portfolio> getData() {
+        return dataSet;
     }
 }
 

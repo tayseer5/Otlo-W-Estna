@@ -64,6 +64,9 @@ public class HttpClientConn {
                     //get
                     networkConnectionGet();
                     break;
+                case 3:
+                    networkConnectionGet(requestParam);
+                    break;
                 default:
                     afterAsynchronous.errorInExecute("invalid connection type enter 0 for post and 1 for get");
                     break;
@@ -119,7 +122,48 @@ public class HttpClientConn {
         HttpEntity httpEntity= null;
         client.get(context, URL, new AsyncHttpResponseHandler() {
             Message message;
-           // Log.i("ahmed", "ahmed");
+
+            // Log.i("ahmed", "ahmed");
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e("ahmed", "onSuccess");
+                String response = new String(responseBody);
+                afterAsynchronous.afterExecute(response, code);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e("in fail getMessage()", error.getMessage());
+                Log.e("in fail", error.getLocalizedMessage());
+                Log.e("in fail headers", headers[0] + "");
+                Log.e("in fail headers", headers[1] + "");
+                Log.e("in fail headers", headers[2] + "");
+                Log.e("in fail responseBody", new String(responseBody));
+                afterAsynchronous.afterExecute(null, code);
+
+            }
+
+            @Override
+            public void onStart() {
+                Log.e("in start", "started");
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+
+            }
+        });
+    }
+
+
+
+
+    private void networkConnectionGet(RequestParams requestParam) {
+        HttpEntity httpEntity= null;
+        client.get(URL,requestParam, new AsyncHttpResponseHandler() {
+            Message message;
+            // Log.i("ahmed", "ahmed");
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.e("ahmed", "onSuccess");

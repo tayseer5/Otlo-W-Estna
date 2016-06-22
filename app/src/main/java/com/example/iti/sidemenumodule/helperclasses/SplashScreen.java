@@ -8,6 +8,7 @@ import android.os.Handler;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.controller.ActicityWithSideMenu;
 import com.example.iti.sidemenumodule.controller.SimpleTabsActivity;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 /**
  * Created by Ahmed_telnet on 5/29/2016.
@@ -21,6 +22,7 @@ public class SplashScreen  extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        TypefaceHelper.typeface(this);
 
         new Handler().postDelayed(new Runnable() {
 

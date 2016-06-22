@@ -136,7 +136,7 @@ public class JobsManger implements AfterAsynchronous {
                 if(imagesJsonArray.length()>0) {
                     String imageObjectString = imagesJsonArray.getString(0);
                     JSONObject imageObject = new JSONObject(imageObjectString);
-                    project.setImageURL(imageObject.getString("imageUrl"));
+                    project.setImageURL(URLManager.ip+"/itiProject"+imageObject.getString("imageUrl"));
                 }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
@@ -193,7 +193,7 @@ public class JobsManger implements AfterAsynchronous {
                 if(imagesJsonArray.length()>0) {
                     String imageObjectString = imagesJsonArray.getString(0);
                     JSONObject imageObject = new JSONObject(imageObjectString);
-                    project.setImageURL(imageObject.getString("imageUrl"));
+                    project.setImageURL(URLManager.ip+"/itiProject"+imageObject.getString("imageUrl"));
                 }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
@@ -253,7 +253,7 @@ public class JobsManger implements AfterAsynchronous {
                 if(imagesJsonArray.length()>0) {
                     String imageObjectString = imagesJsonArray.getString(0);
                     JSONObject imageObject = new JSONObject(imageObjectString);
-                    project.setImageURL(imageObject.getString("imageUrl"));
+                    project.setImageURL(URLManager.ip+"/itiProject"+imageObject.getString("imageUrl"));
                 }
                 String detailsesJsonArrayString = projectObject.getString("detailses");
                 JSONArray detailsesJsonArray = new JSONArray(detailsesJsonArrayString);
@@ -297,7 +297,7 @@ public class JobsManger implements AfterAsynchronous {
         timeFormat = sdf.format(project.getProjectDeadLine());
         requestParam.put("projectDeadLine", timeFormat);
         requestParam.put("content", project.getImageContent());
-        requestParam.put("name", project.getImageName());
+        requestParam.put("name", project.getProjectName().trim());
         requestParam.put("tagsofprojectses", "java,php,mmm");
         loginConnection.RequestService(postProjectURL, requestParam, 2, null, 0);
     }

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.view.LoginFragment;
 import com.example.iti.sidemenumodule.view.SignUpFragment;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this,UploadImageActivity.class);
 //        startActivityForResult(intent, 0);
         setContentView(R.layout.activity_registration);
+        TypefaceHelper.typeface(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     //   getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -42,8 +44,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LoginFragment(), "Login");
-        adapter.addFragment(new SignUpFragment(), "SignUp");
+        adapter.addFragment(new LoginFragment(), getString(R.string.logintab));
+        adapter.addFragment(new SignUpFragment(), getString(R.string.singuptab));
         viewPager.setAdapter(adapter);
 
     }

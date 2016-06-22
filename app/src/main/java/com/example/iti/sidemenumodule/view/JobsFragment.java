@@ -19,12 +19,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
+import com.example.iti.sidemenumodule.controller.MyApplication;
 import com.example.iti.sidemenumodule.daos.EmployeeManger;
 import com.example.iti.sidemenumodule.daos.JobsManger;
 import com.example.iti.sidemenumodule.helperclasses.EmployeeCustomAdapter;
 import com.example.iti.sidemenumodule.helperclasses.JobsCustomAdapter;
 import com.example.iti.sidemenumodule.model.Project;
+import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -59,13 +62,21 @@ public class JobsFragment extends Fragment implements AfterPraseResult {
             data=new ArrayList<>();
             // Inflate the layout for this fragment
             rootView = inflater.inflate(R.layout.fragment_jobs, container, false);
+            TypefaceHelper.typeface(rootView);
             listView = (ListView) rootView.findViewById(R.id.jobs_listview);
             progress = new ProgressDialog(myContext,R.style.MyTheme);
             progress.setCancelable(false);
             progress.show();
             JobsManger jobsManger=JobsManger.getInstance(myContext);
             if(flag){
-                jobsManger.getWorkJobsList(this, 1);
+                MyApplication userObject = (MyApplication) myContext.getApplicationContext();
+                if(userObject!=null) {
+                    Users user = userObject.getUser();
+                    jobsManger.getWorkJobsList(this, user.getUserId());
+                }else {
+                    jobsManger.getWorkJobsList(this, 4);
+                }
+
             }else{
             jobsManger.getJobsList(this);}
             adapter = new JobsCustomAdapter(myContext, data);
@@ -96,10 +107,9 @@ public class JobsFragment extends Fragment implements AfterPraseResult {
 
         @Override
         public void afterParesResult(Object list,int code) {
-            data=(ArrayList)list;
-            adapter.getData().clear();
-            adapter.getData().addAll(data);
-            Log.i("jobfragment","test");
+            data = (ArrayList) list;
+            adapter = new JobsCustomAdapter(myContext, data);
+            listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             progress.dismiss();
         }
