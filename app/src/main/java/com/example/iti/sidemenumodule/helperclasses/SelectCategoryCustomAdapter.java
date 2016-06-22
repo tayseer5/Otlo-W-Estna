@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Employee;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class SelectCategoryCustomAdapter extends ArrayAdapter {
 
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.select_category_single_row, parent, false);
+        TypefaceHelper.typeface(rowView);
         TextView nameTextView=(TextView)rowView.findViewById(R.id.category_name_textview);
         nameTextView.setText(myDate.get(position).getCategoryName());
         return rowView;

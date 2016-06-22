@@ -7,12 +7,12 @@ public class Portfolio {
     int portofolioId;
     String portDescription;
     int userId;
-    int image;
+    String image;
     int categoryId;
     public Portfolio(){}
 
 
-    public Portfolio(int portofolioId, String portDescription, int userId, int image, int categoryId) {
+    public Portfolio(int portofolioId, String portDescription, int userId, String image, int categoryId) {
         this.portofolioId = portofolioId;
         this.portDescription = portDescription;
         this.userId = userId;
@@ -44,11 +44,11 @@ public class Portfolio {
         this.userId = userId;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.UserManager;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 public class LoginFragment extends Fragment implements AfterPraseResult {
     View rootView;
@@ -41,6 +42,7 @@ public class LoginFragment extends Fragment implements AfterPraseResult {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.login_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         mail= (EditText) rootView.findViewById(R.id.loginEmail);
         password= (EditText) rootView.findViewById(R.id.loginPassword);
         href= (TextView) rootView.findViewById(R.id.forgetPasswordURL);
@@ -79,7 +81,7 @@ public class LoginFragment extends Fragment implements AfterPraseResult {
     public void afterParesResult(Object message, int code) {
         Intent returnIntent = new Intent();
         getActivity().setResult(Activity.RESULT_OK,returnIntent);
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 
     @Override

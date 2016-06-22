@@ -39,6 +39,7 @@ public class JobsCustomAdapter extends ArrayAdapter {
 
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.job_custom_row, parent, false);
+
         TextView nameTextView=(TextView)rowView.findViewById(R.id.job_name_textview);
         TextView detTextView=(TextView)rowView.findViewById(R.id.job_detelis);
         TextView priceTextView=(TextView) rowView.findViewById(R.id.row_price_textview);

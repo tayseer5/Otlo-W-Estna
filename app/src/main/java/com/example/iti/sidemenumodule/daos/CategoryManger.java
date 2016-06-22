@@ -61,6 +61,11 @@ public class CategoryManger implements AfterAsynchronous{
                     String element=jsonArray.getString(i);
                     Category category = gson.fromJson(element, Category.class);
                     Log.i("gsontest",category.getCategoryName());
+                    String imageplace=category.getImageOfCategoryUrl();
+                    Log.e("image from cat",category.getImageOfCategoryUrl());
+                    Log.e("imageplace",imageplace);
+                    category.setImageOfCategoryUrl(URLManager.ip+"/itiProject"+imageplace);
+                    Log.e("image from cat 2",category.getImageOfCategoryUrl());
                     categoriesList.add(category);
                 }
                 view.afterParesResult(categoriesList,code);

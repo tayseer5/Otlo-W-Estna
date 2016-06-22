@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/multi_color_splash_screen"
+            android:layout_height="160dp"
+            android:background="@drawable/cat121"
             app:popupTheme="@style/ThemeOverlay.AppCompat" >
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout

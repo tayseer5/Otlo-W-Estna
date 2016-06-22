@@ -14,6 +14,7 @@ import com.example.iti.sidemenumodule.datamanger.DataManger;
 import com.example.iti.sidemenumodule.model.Employee;
 import com.example.iti.sidemenumodule.model.Proposal;
 import com.example.iti.sidemenumodule.model.Users;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -43,6 +44,7 @@ public class ProposalCustomAdapter extends ArrayAdapter {
 
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.proposal_row, parent, false);
+        TypefaceHelper.typeface(rowView);
         TextView nameTextView=(TextView)rowView.findViewById(R.id.employee_name_textview);
         TextView titleTextView=(TextView)rowView.findViewById(R.id.employee_title_textview);
         RatingBar ratingBar=(RatingBar)rowView.findViewById(R.id.rating);

@@ -15,6 +15,9 @@
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +36,7 @@
             android:elevation="1dp"
             android:layout_margin="2dp"
             android:padding="4dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,28 +81,14 @@
         android:id="@+id/project_details_edittext"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="20dp"
-        android:textColor="@color/light_black"
-        android:layout_alignParentBottom="true"
-        android:text="@string/post_project_skills" />
-    <EditText
-        android:inputType="textMultiLine"
-        android:lines="4"
-        android:minLines="2"
-        android:gravity="top|right"
-        android:maxLines="6"
-        android:layout_marginBottom="24dp"
-        android:textColor="@color/light_black"
-        android:hint="@string/post_project_skills_hint"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:scrollbars="vertical"
-        android:id="@+id/project_skills_edittext"
-        />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/choiseYourSkills"
+                android:id="@+id/choiseSkills" />
 
         <TextView
             android:layout_width="match_parent"

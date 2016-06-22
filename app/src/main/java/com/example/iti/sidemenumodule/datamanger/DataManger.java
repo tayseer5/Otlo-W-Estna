@@ -31,14 +31,7 @@ public class DataManger {
         return data;
     }
 
-    public static ArrayList<Portfolio> getPortfolios(int catId) {
-        ArrayList data = new ArrayList<Portfolio>();
-        for (int i = 0; i < MyData.nameArray.length; i++) {
-            data.add(new Portfolio(MyData.id_[i],MyData.nameArray[i],MyData.id_[i],MyData.drawableArrayPortfolio[i],MyData.id_[i]));
-        }
 
-        return data;
-    }
 
     public static ArrayList<Employee> getEmployees() {
         ArrayList data = new ArrayList<Employee>();
@@ -49,14 +42,6 @@ public class DataManger {
         return data;
     }
 
-    public static ArrayList<Portfolio> getPortfolios(Users user) {
-        ArrayList data = new ArrayList<Portfolio>();
-        for (int i = 0; i < MyData.nameArray.length*5; i++) {
-            data.add(new Portfolio(MyData.id_[i%2],MyData.nameArray[i%2],MyData.id_[i%2],MyData.drawableArrayPortfolio[i%2],MyData.id_[i%2]));
-        }
-
-        return data;
-    }
 
 
 
@@ -76,6 +61,10 @@ public class DataManger {
 
         return data;
     }
+
+
+
+
 }
 
 

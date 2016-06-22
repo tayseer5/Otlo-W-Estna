@@ -16,6 +16,7 @@ import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.view.AddPortfolioItemFragment;
 import com.example.iti.sidemenumodule.view.PortfoliosFragment;
 import com.example.iti.sidemenumodule.view.ProfileFragment;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 public class ProtoflioActivity extends ActionBarActivity {
 Toolbar toolbar;
@@ -23,6 +24,7 @@ Toolbar toolbar;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_protoflio);
+        TypefaceHelper.typeface(this);
         toolbar= (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

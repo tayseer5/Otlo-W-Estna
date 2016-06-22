@@ -118,4 +118,12 @@
     <string name="sigin_up">أنشاء حساب</string>
     <string name="yourUserName">ادخل أسمك</string>
     <string name="proposal_details_hint">ادعم عرضك بمعلومات عنه/ امتي حتسلمه ليه شايف انك تقدر تعمل الشغل ده.......</string>
+    <string name="profile_cityPart">المركز</string>
+    <string name="logintab">تسجيل الدخول</string>
+    <string name="singuptab">انشاء حساب</string>
+    <string name="title_profile">صفحتي الشخصيه</string>
+    <string name="you_must_login">لابد من تسجيل الدخول اولا..</string>
+    <string name="kindOfAccount">تسجيل الدخول ك</string>
+    <string name="hired">عميل</string>
+    <string name="worker">صاحب حرفه يدويه</string>
 </resources>

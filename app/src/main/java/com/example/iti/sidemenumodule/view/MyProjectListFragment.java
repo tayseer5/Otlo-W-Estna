@@ -16,13 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.iti.sidemenumodule.R;
+import com.example.iti.sidemenumodule.controller.MyApplication;
 import com.example.iti.sidemenumodule.daos.JobsManger;
 import com.example.iti.sidemenumodule.datamanger.DataManger;
 
 import com.example.iti.sidemenumodule.helperclasses.MyProjectCustomerAdapter;
 import com.example.iti.sidemenumodule.model.Project;
 import com.example.iti.sidemenumodule.model.ProjectData;
+import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 
 import java.util.ArrayList;
@@ -45,14 +48,23 @@ public class MyProjectListFragment extends Fragment implements AfterPraseResult{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         data=new ArrayList<>();
         rootView = inflater.inflate(R.layout.my_project_list_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         JobsManger jobsManger=JobsManger.getInstance(myContext);
-        jobsManger.getMyJobsList(this, 1);
+        MyApplication userObject = (MyApplication) myContext.getApplicationContext();
+        if(userObject!=null) {
+            Users user = userObject.getUser();
+            jobsManger.getMyJobsList(this, user.getUserId());
+        }else {
+            jobsManger.getMyJobsList(this, 4);
+        }
+
         progress = new ProgressDialog(myContext,R.style.MyTheme);
         progress.setCancelable(false);
         progress.show();

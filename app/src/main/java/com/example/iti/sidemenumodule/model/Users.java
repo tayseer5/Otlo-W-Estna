@@ -1,6 +1,8 @@
 package com.example.iti.sidemenumodule.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ITI on 04/06/2016.
@@ -27,6 +29,7 @@ public class Users {
     public ArrayList<Skills> getUserSkills() {
         return userSkills;
     }
+    private Set<Portofolioforuser> portofolioforusers = new HashSet<Portofolioforuser>(0);
 
     public void setUserSkills(ArrayList<Skills> userSkills) {
         this.userSkills = userSkills;

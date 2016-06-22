@@ -31,10 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
+import com.example.iti.sidemenumodule.controller.MyApplication;
 import com.example.iti.sidemenumodule.daos.JobsManger;
 import com.example.iti.sidemenumodule.datamanger.DataManger;
 import com.example.iti.sidemenumodule.model.Project;
+import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -81,6 +84,7 @@ public class SecondPostProjectFragment extends Fragment implements AfterPraseRes
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.second_post_project_fragment, container, false);
+        TypefaceHelper.typeface(rootView);
         bugetEditText=(EditText)  rootView.findViewById(R.id.project_budget_edittext);
         moreEditText=(EditText)  rootView.findViewById(R.id.project_more_details_edittext);
         dateSpinner = (Spinner) rootView.findViewById(R.id.date_spinner);
@@ -148,7 +152,13 @@ public class SecondPostProjectFragment extends Fragment implements AfterPraseRes
                 st.concat(" " + moreEditText.getText().toString());
                 project.setProjectDescription(st);
                 project.setBudget(Integer.parseInt(bugetEditText.getText().toString()));
-                project.setUsers(1);
+                MyApplication userObject = (MyApplication) myContext.getApplicationContext();
+                if(userObject!=null) {
+                    Users user = userObject.getUser();
+                    project.setUsers(user.getUserId());
+                }else {
+                    project.setUsers(4);
+                }
                 JobsManger jobsManger=JobsManger.getInstance(myContext);
                 jobsManger.postProject(project,SecondPostProjectFragment.this);
 

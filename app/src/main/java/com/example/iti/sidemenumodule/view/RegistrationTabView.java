@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.iti.sidemenumodule.R;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 /**
  * Created by ITI on 20/05/2016.
@@ -21,6 +22,7 @@ public class RegistrationTabView extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        rootView = inflater.inflate(R.layout.login_registration_tab_view, container, false);
+        TypefaceHelper.typeface(rootView);
         Button bt = (Button) rootView.findViewById(R.id.button);
         bt.setOnClickListener(this);
         return rootView;

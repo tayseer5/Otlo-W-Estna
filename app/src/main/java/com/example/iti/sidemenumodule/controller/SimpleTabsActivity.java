@@ -26,6 +26,7 @@ import com.example.iti.sidemenumodule.view.MainFragment;
 import com.example.iti.sidemenumodule.view.PortfolioCustomAdapter;
 import com.example.iti.sidemenumodule.view.WorkStreamFragment;
 import com.example.iti.sidemenumodule.view.requestProductFragment;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class SimpleTabsActivity extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.activity_simple_tabs, container, false);
+        TypefaceHelper.typeface(rootView);
         toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 

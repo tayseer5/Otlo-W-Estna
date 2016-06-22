@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.model.Employee;
 import com.example.iti.sidemenumodule.model.Users;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class EmployeeCustomAdapter extends ArrayAdapter {
 
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.employee_single_row, parent, false);
+        TypefaceHelper.typeface(rowView);
         TextView nameTextView=(TextView)rowView.findViewById(R.id.employee_name_textview);
         TextView titleTextView=(TextView)rowView.findViewById(R.id.employee_title_textview);
         ImageView imageView=(ImageView)rowView.findViewById(R.id.employee_image);

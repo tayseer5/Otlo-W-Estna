@@ -15,7 +15,7 @@ public class MyData {
     public static String[] customerName = {"Hassan", "Ahmed", "Mona","Alaa"};
     public static String[] salary = {"500", "600", "700","800"};
     public static Integer[] presentageOfFinsh = {20, 0, 100,80};
-    public static Integer[] drawableArray = {R.drawable.cat1, R.drawable.cat2, R.drawable.cat3};
+    public static Integer[] drawableArray = {R.drawable.cat121, R.drawable.cat2, R.drawable.cat3};
     public static Integer[] id_ = {0, 1, 2};
     public static Integer[] drawableArrayPortfolio={R.drawable.proudect,R.drawable.proudect,R.drawable.proudect};
     public static String[] employeeNameArray = {"Ahmed", "Hassan", "Mona","tayseer","alaa"};

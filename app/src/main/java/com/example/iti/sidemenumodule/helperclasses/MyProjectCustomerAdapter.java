@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.norbsoft.typefacehelper.TypefaceHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,6 +57,7 @@ public class MyProjectCustomerAdapter extends ArrayAdapter {
             // inflate the layout
             LayoutInflater inflater = context.getLayoutInflater();
             convertView = inflater.inflate(R.layout.my_project_row, parent, false);
+            TypefaceHelper.typeface(convertView);
 
             // well set up the ViewHolder
             viewHolder = new ViewHolderItem();

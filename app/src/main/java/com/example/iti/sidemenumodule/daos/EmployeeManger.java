@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Employee;
+import com.example.iti.sidemenumodule.model.Portfolio;
 import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterAsynchronous;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
@@ -57,10 +58,34 @@ public class EmployeeManger implements AfterAsynchronous{
                 JSONArray jsonArray=new JSONArray(myData);
                 employeesList=new ArrayList<>();
                 for (int i=0;i<jsonArray.length();i++) {
-                    Gson gson = new Gson();
                     String element=jsonArray.getString(i);
-                    Users emoloyee = gson.fromJson(element, Users.class);
-                    Log.i("gsontest", emoloyee.getUserName());
+                    Users emoloyee = new Users();
+                    JSONObject emoloyeeObject=new JSONObject(element);
+                    emoloyee.setUserId(emoloyeeObject.getInt("userId"));
+                    emoloyee.setUserEmail(emoloyeeObject.getString("userEmail"));
+                    emoloyee.setUserImageUrl(URLManager.ip + "/itiProject" + emoloyeeObject.getString("userImageUrl"));
+                  //  emoloyee.setPassword(emoloyeeObject.getString("password"));
+                    emoloyee.setGender(emoloyeeObject.getString("gender").equals("1"));
+                    emoloyee.setUserName(emoloyeeObject.getString("userName"));
+                    emoloyee.setPed(emoloyeeObject.getInt("ped"));
+                    emoloyee.setCountry(emoloyeeObject.getString("country"));
+                    emoloyee.setGovernorate(emoloyeeObject.getString("governorate"));
+                    emoloyee.setCity(emoloyeeObject.getString("city"));
+                    emoloyee.setStreet(emoloyeeObject.getString("street"));
+                    emoloyee.setSummery(emoloyeeObject.getString("summery"));
+                    emoloyee.setProfessinalTiltle(emoloyeeObject.getString("professinalTiltle"));
+                    emoloyee.setIdentefire(emoloyeeObject.getString("identefire"));
+                    emoloyee.setToken(emoloyeeObject.getString("token"));
+                    emoloyee.setRate(emoloyeeObject.getInt("rate"));
+                    String portofolioJsonArrayString = emoloyeeObject.getString("portofolioforusers");
+                    JSONArray portofolioJsonArray = new JSONArray(portofolioJsonArrayString);
+
+//                    for(int j=0;i<portofolioJsonArray.length();i++) {
+//                        String portofolioObjectString = portofolioJsonArray.getString(i);
+//                        JSONObject portofolioObject = new JSONObject(portofolioObjectString);
+//                        Portfolio
+//                        project.setImageURL(portofolioObject.getString("imageUrl"));
+//                    }
                     employeesList.add(emoloyee);
                 }
                 view.afterParesResult(employeesList,code);
