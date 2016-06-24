@@ -296,9 +296,17 @@ public class JobsManger implements AfterAsynchronous {
         requestParam.put("startDate", timeFormat);
         timeFormat = sdf.format(project.getProjectDeadLine());
         requestParam.put("projectDeadLine", timeFormat);
-        requestParam.put("content", project.getImageContent());
+        requestParam.put("content", project.getImageContent()==null?"":project.getImageContent());
         requestParam.put("name", project.getProjectName().trim());
         requestParam.put("tagsofprojectses", "java,php,mmm");
+        requestParam.put("tId", project.getTypeId());
+        requestParam.put("width", project.getWidth());
+        requestParam.put("long", project.getProjectLong());
+        requestParam.put("hight", project.getHight());
+        requestParam.put("color", project.getColor());
+        requestParam.put("material", project.getMaterial());
+        requestParam.put("location", project.getLocation()==null?"":project.getLocation());
+
         loginConnection.RequestService(postProjectURL, requestParam, 2, null, 0);
     }
 

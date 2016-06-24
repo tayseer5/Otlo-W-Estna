@@ -20,6 +20,71 @@ public class Project {
     private String imageName;
     private String imageURL;
     private String statusOfProject;
+    private int typeId;
+    private int width;
+    private int projectLong;
+    private int hight;
+    private String color;
+    private String material;
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getProjectLong() {
+        return projectLong;
+    }
+
+    public void setProjectLong(int projectLong) {
+        this.projectLong = projectLong;
+    }
+
+    public int getHight() {
+        return hight;
+    }
+
+    public void setHight(int hight) {
+        this.hight = hight;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    private String location;
+
 
     public String getStatusOfProject() {
         return statusOfProject;

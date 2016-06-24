@@ -148,9 +148,7 @@ public class SecondPostProjectFragment extends Fragment implements AfterPraseRes
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                String st=project.getProjectDescription();
-                st.concat(" " + moreEditText.getText().toString());
-                project.setProjectDescription(st);
+                project.setProjectDescription(moreEditText.getText().toString());
                 project.setBudget(Integer.parseInt(bugetEditText.getText().toString()));
                 MyApplication userObject = (MyApplication) myContext.getApplicationContext();
                 if(userObject!=null) {

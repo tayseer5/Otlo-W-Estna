@@ -19,14 +19,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
+import com.example.iti.sidemenumodule.daos.CategoryManger;
+import com.example.iti.sidemenumodule.model.Category;
 import com.example.iti.sidemenumodule.model.Users;
+import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
 import com.example.iti.sidemenumodule.view.PostProjectFragment;
+import com.example.iti.sidemenumodule.view.PostProjectFragmentOne;
+import com.example.iti.sidemenumodule.view.PostProjectFragmentThree;
 import com.google.gson.Gson;
 import com.norbsoft.typefacehelper.TypefaceHelper;
 
-public class PostProjectMainActivity extends ActionBarActivity {
+import java.util.ArrayList;
+
+public class PostProjectMainActivity extends ActionBarActivity implements AfterPraseResult {
     private Toolbar toolbar;
     Spinner categorySpinner;
+    ArrayList<Category> categoryList;
     String[] categoryNames={"ahmed","mohamed","hussin"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +56,35 @@ public class PostProjectMainActivity extends ActionBarActivity {
             }
         });
 
+        CategoryManger categoryManger = CategoryManger.getInstance(this);
+        categoryManger.getCategoriesList(this);
+        categoryNames=getCategoryNames();
         categorySpinner = (Spinner) findViewById(R.id.post_project_category_spinner);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, categoryNames);
         categorySpinner.setAdapter(adapter1);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-                String categoryName = categorySpinner.getSelectedItem().toString();
+                Log.e("in selecte item",pos+"");
+                Fragment fragment=null;
+               switch (pos){
+                   case 0:
+                       fragment=new PostProjectFragmentOne(getCategoryIdByName(categoryNames[pos]));
+                       break;
+                   case 1:
+
+                       fragment=new PostProjectFragmentThree(getCategoryIdByName(categoryNames[pos]));
+                       break;
+                   case 2:
+                       fragment=new PostProjectFragmentOne(getCategoryIdByName(categoryNames[pos]));
+                       break;
+
+               }
+
+                FragmentManager manager=getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.fragment, fragment, "postProject");
+                transaction.commit();
             }
 
             @Override
@@ -63,11 +93,11 @@ public class PostProjectMainActivity extends ActionBarActivity {
 
         });
 
-        Fragment fragment=new PostProjectFragment();
-        FragmentManager manager=getSupportFragmentManager();
-        FragmentTransaction transaction=manager.beginTransaction();
-        transaction.add(R.id.fragment, fragment, "postProject");
-        transaction.commit();
+//        Fragment fragment=new PostProjectFragment();
+//        FragmentManager manager=getSupportFragmentManager();
+//        FragmentTransaction transaction=manager.beginTransaction();
+//        transaction.add(R.id.fragment, fragment, "postProject");
+//        transaction.commit();
 
         if(IsNotLogin()){
 
@@ -124,5 +154,37 @@ public class PostProjectMainActivity extends ActionBarActivity {
 
         }
         return sharedString.contentEquals("Not login");
+    }
+
+    @Override
+    public void afterParesResult(Object data, int code) {
+        categoryList = (ArrayList) data;
+    }
+
+    @Override
+    public void errorParesResult(String errorMessage, int code) {
+
+    }
+
+    private String[] getCategoryNames()
+    {
+        String[] names=new String[categoryList.size()];
+        for(int i=0;i<categoryList.size();i++)
+        {
+            names[i]=categoryList.get(i).getCategoryName();
+        }
+        return names;
+    }
+
+    private int getCategoryIdByName(String name)
+    {
+        for(int i=0;i<categoryList.size();i++)
+        {
+            if(categoryList.get(i).getCategoryName().equals(name))
+            {
+                return categoryList.get(i).getCategoryId();
+            }
+        }
+        return -1;
     }
 }

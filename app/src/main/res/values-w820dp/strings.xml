@@ -87,4 +87,10 @@
     <string name="password_error_msg">كلمة السر لابد ان تكون متتطابقه</string>
     <string name="emailErrorMsg">برجاء ادخال اميل صحيح</string>
     <string name="dataErrorMsg">برجاء التأكد من ادخال كل البينات المطلوبه</string>
+    <string name="project_type_text">اختار تصنيف لمشروعك</string>
+    <string name="project_long_text">الطول المطلوب</string>
+    <string name="project_size_text">الحجم المطلوب</string>
+    <string name="project_matrial_text">الماده المستخدمه</string>
+    <string name="project_color_text">اللون</string>
+    <string name="project_width_text">العرض المطلوب</string>
 </resources>
