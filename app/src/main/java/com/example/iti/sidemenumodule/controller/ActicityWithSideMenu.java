@@ -44,30 +44,27 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
         TypefaceHelper.typeface(this);
     }
     private void drawSideMenu() {
-        //Menu Elements
         HelpLiveo mHelpLiveo = new HelpLiveo();
-        mHelpLiveo.add(getString(R.string.homepage), R.mipmap.home);
-        // mHelpLiveo.addSeparator(); // Item separator
-        mHelpLiveo.add(getString(R.string.show_profile), R.mipmap.briefcase);
-        mHelpLiveo.add(getString(R.string.dash_board), R.mipmap.work_flow);
-        mHelpLiveo.add(getString(R.string.post_project), R.mipmap.job_post);
-        mHelpLiveo.add(getString(R.string.customer_project), R.drawable.ic_https_black_24dp);
-
         //is not login
         if(IsNotLogin())
         {
+            //Menu Elements
+
+            mHelpLiveo.add(getString(R.string.homepage), R.mipmap.home);
+            // mHelpLiveo.addSeparator(); // Item separator
+            mHelpLiveo.add(getString(R.string.show_profile), R.mipmap.briefcase);
+            mHelpLiveo.add(getString(R.string.dash_board), R.mipmap.work_flow);
+            mHelpLiveo.add(getString(R.string.post_project), R.mipmap.job_post);
+            mHelpLiveo.add(getString(R.string.customer_project), R.drawable.ic_https_black_24dp);
             mHelpLiveo.add(getString(R.string.sigin_in), R.drawable.ic_https_black_24dp);
             this.userBackground.setImageResource(R.drawable.ic_user_background_first);
             this.userBackground.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
         }
         else {
-            mHelpLiveo.add(getString(R.string.log_out), R.drawable.ic_android_black_24dp);
-            this.userBackground.setImageResource(R.drawable.ic_user_background_first);
-            this.userBackground.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
             //This is the Header of side menu
             MyApplication userObject = (MyApplication) getApplicationContext();
+            Users user = userObject.getUser();
             if(userObject!=null) {
-                Users user = userObject.getUser();
                 this.userName.setText(user.getUserName());
                 this.userEmail.setText(user.getUserEmail());
                 //this.userPhoto.setImageResource(R.drawable.ic_rudsonlive);
@@ -76,6 +73,20 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
                         .placeholder(R.drawable.ic_rudsonlive)
                         .into(userPhoto);
             }
+            //Menu Elements
+            mHelpLiveo.add(getString(R.string.homepage), R.mipmap.home);
+            mHelpLiveo.add(getString(R.string.show_profile), R.mipmap.briefcase);
+            if (user.getTypeOfBusiness().equals("both")||user.getTypeOfBusiness().equals("hire")) {
+                mHelpLiveo.add(getString(R.string.post_project), R.mipmap.job_post);
+                mHelpLiveo.add(getString(R.string.customer_project), R.drawable.ic_https_black_24dp);
+            }
+            if (user.getTypeOfBusiness().equals("both")||user.getTypeOfBusiness().equals("work")) {
+                mHelpLiveo.add(getString(R.string.dash_board), R.mipmap.work_flow);
+            }
+            mHelpLiveo.add(getString(R.string.log_out), R.drawable.ic_android_black_24dp);
+            this.userBackground.setImageResource(R.drawable.ic_user_background_first);
+            this.userBackground.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
+
         }
         mHelpLiveo.add(getString(R.string.settings), R.drawable.ic_android_black_24dp);
         mHelpLiveo.add(getString(R.string.about), R.drawable.ic_android_black_24dp);
@@ -171,12 +182,13 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
         SharedPreferences sharedpreferences = getSharedPreferences("loginPrefrence", Context.MODE_PRIVATE);
         String sharedString = sharedpreferences.getString("user", "Not login");
         if(!sharedString.contentEquals("Not login")) {
-            Log.e("IsNotLogin if","IsNotLogin");
+
             Gson gson = new Gson();
             Users user = gson.fromJson(sharedString,Users.class);
             if (user!=null)
             {Log.e("not","null");
                 Log.e("is",user.getUserEmail());
+                Log.e("type",user.getTypeOfBusiness());
                 Log.e("is",getApplicationContext().getClass()+"");
                 MyApplication appState = (MyApplication)getApplicationContext();
                 appState.setUser(user);}

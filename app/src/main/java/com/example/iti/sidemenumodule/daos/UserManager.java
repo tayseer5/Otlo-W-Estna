@@ -63,13 +63,20 @@ public class UserManager implements AfterAsynchronous {
         requestParam.add("identifire", "");
         requestParam.add("mobiles", " , ");
         requestParam.add("phones", " , ");
+        requestParam.add("bussinessType",userData.getTypeOfBusiness());
         String skills = "";
-        for (int i=0;i<userData.getUserSkills().size();i++)
+        if (userData.getTypeOfBusiness().equals("work")||userData.getTypeOfBusiness().equals("both")) {
+            for (int i = 0; i < userData.getUserSkills().size(); i++) {
+                skills = skills.concat(userData.getUserSkills().get(i).getSkillId() + ",");
+            }
+        }
+        else
         {
-            skills= skills.concat(userData.getUserSkills().get(i).getSkillId()+",");
+            skills="1,";
         }
         requestParam.add("skill", skills);
         registrationConnection.RequestService(URLManager.registrationURL, requestParam, 1, null, URLManager.postConnectionType);
+
     }
 
     public void logOut() {

@@ -83,4 +83,8 @@
     <string name="logintab">تسجيل الدخول</string>
     <string name="title_profile">صفحتي الشخصيه</string>
     <string name="you_must_login">لابد من تسجيل الدخول اولا..</string>
+    <string name="registrationErrorMsg">خطأ فى التسجيل</string>
+    <string name="password_error_msg">كلمة السر لابد ان تكون متتطابقه</string>
+    <string name="emailErrorMsg">برجاء ادخال اميل صحيح</string>
+    <string name="dataErrorMsg">برجاء التأكد من ادخال كل البينات المطلوبه</string>
 </resources>

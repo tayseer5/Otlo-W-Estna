@@ -26,6 +26,16 @@ public class Users {
     private String token;
     private ArrayList<Skills> userSkills;
 
+    public String getTypeOfBusiness() {
+        return typeOfBusiness;
+    }
+
+    public void setTypeOfBusiness(String typeOfBusiness) {
+        this.typeOfBusiness = typeOfBusiness;
+    }
+
+    private String typeOfBusiness;
+
     public ArrayList<Skills> getUserSkills() {
         return userSkills;
     }

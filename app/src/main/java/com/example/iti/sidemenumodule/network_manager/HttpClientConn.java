@@ -133,12 +133,7 @@ public class HttpClientConn {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e("in fail getMessage()", error.getMessage());
-                Log.e("in fail", error.getLocalizedMessage());
-                Log.e("in fail headers", headers[0] + "");
-                Log.e("in fail headers", headers[1] + "");
-                Log.e("in fail headers", headers[2] + "");
-                Log.e("in fail responseBody", new String(responseBody));
+                Log.e("error in asynk",error.toString());
                 afterAsynchronous.afterExecute(null, code);
 
             }

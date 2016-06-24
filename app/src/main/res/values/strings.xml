@@ -126,4 +126,8 @@
     <string name="kindOfAccount">تسجيل الدخول ك</string>
     <string name="hired">عميل</string>
     <string name="worker">صاحب حرفه يدويه</string>
+    <string name="registrationErrorMsg">خطأ فى التسجيل</string>
+    <string name="password_error_msg">كلمة السر لابد ان تكون متتطابقه</string>
+    <string name="emailErrorMsg">برجاء ادخال اميل صحيح</string>
+    <string name="dataErrorMsg">برجاء التأكد من ادخال كل البينات المطلوبه</string>
 </resources>
