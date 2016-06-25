@@ -24,6 +24,25 @@ public class Users {
     private String professinalTiltle;
     private String identefire;
     private String token;
+    private String mobile;
+    private String phone;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     private ArrayList<Skills> userSkills;
 
     public String getTypeOfBusiness() {

@@ -66,16 +66,16 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
     TextView profile_email;
     ArrayList<Skills> selectedList;
     TextView profile_name;
-    private EditText professinal_title;
-    private EditText summary;
-    private EditText city;
-    private EditText street;
-    private Button change_PP;
-    private Uri outputFileUri;
-    private ImageView ppImgVi;
-    private EditText governorate;
-    private Button saveBt;
-
+    EditText professinal_title;
+    EditText summary;
+    EditText city;
+    EditText street;
+    Button change_PP;
+    Uri outputFileUri;
+    ImageView ppImgVi;
+    EditText governorate;
+    Button saveBt;
+    EditText phone;
     public ProfileFragment() {
         Log.e("heloo","hello");
 
@@ -108,6 +108,7 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
             professinal_title = (EditText) rootView.findViewById(R.id.professinal_title_edittext);
             change_PP = (Button)rootView.findViewById(R.id.change_pic_button);
             ppImgVi = (ImageView)rootView.findViewById(R.id.employee_image);
+            phone= (EditText) rootView.findViewById(R.id.phone_edittext);
             change_PP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -186,8 +187,16 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
         Users userUpdateData = new Users();
         String dataNotWritten=" ";
         userUpdateData.setUserId(user.getUserId());
+        if (!phone.getText().toString().trim().equals(null)&&!phone.getText().toString().trim().equals("")) {
+            userUpdateData.setMobile(phone.getText().toString().trim());
+        }else{
+            Log.e("here","6");
+            dataNotWritten.concat("phone ");
+        }
         userUpdateData.setUserSkills(user.getUserSkills());
         userUpdateData.setGender(user.isGender());
+
+
         if(user.getUserImageUrl()==null)
         {
             Log.e("here","2");
@@ -228,7 +237,7 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
             }
             if (!governorate.getText().toString().trim().equals(null)&&!governorate.getText().toString().trim().equals("")) {
                 Log.e("here","9");
-                userUpdateData.setStreet(governorate.getText().toString().trim());
+                userUpdateData.setGovernorate(governorate.getText().toString().trim());
             }else{
                 dataNotWritten.concat("governorate ");
             }

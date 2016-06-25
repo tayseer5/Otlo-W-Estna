@@ -121,7 +121,6 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
     public void onItemClick(int position) {
         Fragment mFragment=null;
         FragmentManager mFragmentManager = getSupportFragmentManager();
-
         switch (position){
             case 1:
                 Intent profileIntent = new Intent(ActicityWithSideMenu.this,ProfileActivity.class);

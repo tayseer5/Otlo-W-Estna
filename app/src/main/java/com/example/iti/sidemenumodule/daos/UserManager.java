@@ -89,9 +89,15 @@ public class UserManager implements AfterAsynchronous {
         HttpClientConn userUpdateConnection = new HttpClientConn(this, context);
         RequestParams requestParam = new RequestParams();
 //        requestParam.add("uId",userNewData.getUserId().toString());
-        requestParam.add("uId","5");
+        Log.e("id",userNewData.getUserId()+"");
+        Log.e("email",userNewData.getUserEmail());
+        Log.e("gender",userNewData.isGender()+"");
+
+        requestParam.add("uId", String.valueOf(userNewData.getUserId()));
 //        requestParam.add("userEmail", userNewData.getUserEmail());
-        requestParam.add("userEmail","tayseer@yahoo.com");
+        requestParam.add("userEmail",userNewData.getUserEmail());
+        requestParam.add("name",userNewData.getUserName()+" profile pic");
+        requestParam.add("content",userNewData.getUserImageUrl());
         if (userNewData.isGender()) {
             requestParam.add("gender", "true");
         }else
@@ -99,16 +105,14 @@ public class UserManager implements AfterAsynchronous {
             requestParam.add("gender", "false");
         }
         requestParam.add("userName",userNewData.getUserName());
-        requestParam.add("name", "test.jpg");
-        requestParam.add("content",userNewData.getUserImageUrl());
-        requestParam.add("governorate", "gov");
+        requestParam.add("governorate", userNewData.getGovernorate());
         requestParam.add("ciry", userNewData.getCity());
         requestParam.add("street", userNewData.getStreet());
         requestParam.add("summery", userNewData.getSummery());
         requestParam.add("Title", userNewData.getProfessinalTiltle());
         requestParam.add("identifire", " ");
-        requestParam.add("mobiles","1225,155 ");
-        requestParam.add("phones", " 123,555 ");
+        requestParam.add("mobiles",userNewData.getMobile()+",");
+        requestParam.add("phones", "123,123");
         String skills = "";
 //        for (int i=0;i<userNewData.getUserSkills().size();i++)
 //        {
