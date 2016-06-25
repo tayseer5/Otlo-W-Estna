@@ -23,8 +23,6 @@ import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpClientConn {
 
-
-
     RequestParams requestParams;
     String URL;
     int code;
@@ -103,7 +101,6 @@ public class HttpClientConn {
                 Log.e("in fail headers", headers[2] + "");
                 Log.e("in fail responseBody", new String(responseBody));
                 afterAsynchronous.errorInExecute(new String(responseBody));
-
             }
 
             @Override

@@ -94,4 +94,5 @@
     <string name="project_color_text">اللون</string>
     <string name="project_width_text">العرض المطلوب</string>
     <string name="updateDate">تم تعديل البينات بنجاح</string>
+    <string name="you_must_fill_alldata">يجب ادخال جميع البيانات قبل الانتقال للصفحه التاليه</string>
 </resources>

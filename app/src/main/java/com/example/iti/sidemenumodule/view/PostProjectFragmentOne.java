@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.CategoryManger;
@@ -122,18 +123,24 @@ public class PostProjectFragmentOne extends Fragment implements AfterPraseResult
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                project.setWidth(Integer.valueOf(widthEditText.getText().toString()));
-                project.setHight(Integer.valueOf(sizeEditText.getText().toString()));
-                project.setProjectLong(Integer.valueOf(longEditText.getText().toString()));
-                project.setProjectName(titleEditText.getText().toString());
-                project.setProjectSkills("1,2,3");
+
+                try {
+                    project.setWidth(Integer.valueOf(widthEditText.getText().toString()));
+                    project.setHight(Integer.valueOf(sizeEditText.getText().toString()));
+                    project.setProjectLong(Integer.valueOf(longEditText.getText().toString()));
+                    project.setProjectName(titleEditText.getText().toString());
+                    project.setProjectSkills("1,2,3");
+                    SecondPostProjectFragment secondPostProjectFragment=new SecondPostProjectFragment(project);
+                    FragmentManager manager=myContext.getSupportFragmentManager();
+                    FragmentTransaction transaction=manager.beginTransaction();
+                    transaction.replace(R.id.fragment, secondPostProjectFragment, "secondPostProjectFragment");
+                    transaction.commit();
+                }catch (Exception e)
+                {
+                    Toast.makeText(myContext, getString(R.string.you_must_fill_alldata), Toast.LENGTH_LONG).show();
+                }
 
 
-                SecondPostProjectFragment secondPostProjectFragment=new SecondPostProjectFragment(project);
-                FragmentManager manager=myContext.getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fragment, secondPostProjectFragment, "secondPostProjectFragment");
-                transaction.commit();
             }
         });
 

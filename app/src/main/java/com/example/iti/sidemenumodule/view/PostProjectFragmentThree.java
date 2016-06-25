@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.CategoryManger;
@@ -66,7 +67,7 @@ public class PostProjectFragmentThree extends Fragment implements AfterPraseResu
         typesList=new ArrayList<>();
         attrList=new ArrayList<>();
         // Inflate the layout for this fragment
-        rootView= inflater.inflate(R.layout.fragment_post_project_fragment_one, container, false);
+        rootView= inflater.inflate(R.layout.fragment_post_project_fragment_three, container, false);
         TypefaceHelper.typeface(rootView);
         CategoryManger categoryManger = CategoryManger.getInstance(myContext);
         categoryManger.getTypesList(this, categoryId);
@@ -121,6 +122,7 @@ public class PostProjectFragmentThree extends Fragment implements AfterPraseResu
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
                 project.setWidth(0);
                 project.setHight(Integer.valueOf(sizeEditText.getText().toString()));
                 project.setProjectLong(Integer.valueOf(longEditText.getText().toString()));
@@ -133,6 +135,10 @@ public class PostProjectFragmentThree extends Fragment implements AfterPraseResu
                 FragmentTransaction transaction=manager.beginTransaction();
                 transaction.replace(R.id.fragment, secondPostProjectFragment, "secondPostProjectFragment");
                 transaction.commit();
+            }catch (Exception e)
+            {
+                Toast.makeText(myContext, getString(R.string.you_must_fill_alldata), Toast.LENGTH_LONG).show();
+            }
             }
         });
 

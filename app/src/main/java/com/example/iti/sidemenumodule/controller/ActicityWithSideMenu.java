@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.URLManager;
@@ -159,7 +160,13 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
                 closeDrawer();
                 break;
             case 2:
-                mFragment=new MyProjectListFragment();
+                if(IsNotLogin()){
+
+                    Toast.makeText(getApplicationContext(), getString(R.string.you_must_login), Toast.LENGTH_LONG).show();
+                    mFragment =new SimpleTabsActivity();
+                }else {
+                    mFragment = new MyProjectListFragment();
+                }
                 break;
             case 3:
                 Intent postIntent = new Intent(ActicityWithSideMenu.this,PostProjectMainActivity.class);
@@ -167,7 +174,14 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
                 closeDrawer();
                 break;
             case 4:
-                mFragment=new JobsFragment(true);
+                if(IsNotLogin()){
+
+                    Toast.makeText(getApplicationContext(), getString(R.string.you_must_login), Toast.LENGTH_LONG).show();
+                    mFragment =new SimpleTabsActivity();
+                }else {
+                    mFragment=new JobsFragment(true);
+                }
+
                 break;
             case 5:
                 Log.e("IsNotLogin","5");

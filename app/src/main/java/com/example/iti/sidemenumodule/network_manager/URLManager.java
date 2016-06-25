@@ -4,8 +4,8 @@ package com.example.iti.sidemenumodule.network_manager;
  * Created by ITI on 04/06/2016.
  */
 public class URLManager {
-  // public static String ip="http://192.168.1.3:8084";//ahmed
-    public static String ip="http://10.0.3.2:8084";//tayseer
+   public static String ip="http://192.168.1.3:8084";//ahmed
+//    public static String ip="http://10.0.3.2:8084";//tayseer
     public static String getCategoryURL=ip+"/itiProject/rest/categoryURL/getCategories";
     public static String getEmployeesURL=ip+"/itiProject/rest/user/getMaxUser";
     public static String getJobsURL=ip+"/itiProject/rest/project/getLastProject?footer=0";

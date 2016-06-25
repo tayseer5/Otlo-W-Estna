@@ -73,10 +73,11 @@ public class PostProjectMainActivity extends ActionBarActivity implements AfterP
                        break;
                    case 1:
 
-                       fragment=new PostProjectFragmentThree(getCategoryIdByName(categoryNames[pos]));
+
+                       fragment=new PostProjectFragmentOne(getCategoryIdByName(categoryNames[pos]));
                        break;
                    case 2:
-                       fragment=new PostProjectFragmentOne(getCategoryIdByName(categoryNames[pos]));
+                       fragment=new PostProjectFragmentThree(getCategoryIdByName(categoryNames[pos]));
                        break;
 
                }
