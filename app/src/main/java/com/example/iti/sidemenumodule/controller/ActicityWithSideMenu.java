@@ -1,6 +1,7 @@
 package com.example.iti.sidemenumodule.controller;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +37,7 @@ import br.liveo.navigationliveo.NavigationLiveo;
 public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClickListener {
     private HelpLiveo mHelpLiveo;
     private Toolbar toolbar;
-
+    private String typeOfBusiness="";
     @Override
     public void onInt(Bundle bundle) {
         Log.e("in init", "yes");
@@ -64,6 +65,7 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
             //This is the Header of side menu
             MyApplication userObject = (MyApplication) getApplicationContext();
             Users user = userObject.getUser();
+            typeOfBusiness=user.getTypeOfBusiness();
             if(userObject!=null) {
                 this.userName.setText(user.getUserName());
                 this.userEmail.setText(user.getUserEmail());
@@ -104,7 +106,7 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
         public void onClick(View v) {
             Log.e("onClickPhoto","onClickPhoto");
             Intent profileIntent = new Intent(ActicityWithSideMenu.this,ProfileActivity.class);
-            startActivity(profileIntent);
+            startActivityForResult(profileIntent, 1);
             closeDrawer();
         }
     };
@@ -119,6 +121,35 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
 
     @Override
     public void onItemClick(int position) {
+
+        switch (typeOfBusiness){
+            case "hire":
+                hireItem(position);
+                break;
+            case "work":
+                workItem(position);
+                break;
+            default:
+                bothItem(position);
+                break;
+        }
+        toolbar=getToolbar();
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.light_green));
+      //  @TargetApi()
+      //  toolbar.setElevation((float) 0.0);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.light_gray));
+        toolbar.inflateMenu(R.menu.menu_protoflio);
+//        TypefaceHelper.typeface(this);
+//        TypefaceCollection typeface=new TypefaceCollection.Builder()
+//                .set(Typeface.NORMAL,Typeface.createFromAsset(getAssets(),"fonts/DroidKufi-Regular.ttf"))
+//                .set(Typeface.BOLD, Typeface.createFromAsset(getAssets(), "fonts/DroidKufi-Bold.ttf"))
+//                .create();
+//        TypefaceHelper.init(typeface);
+    }
+
+    private void bothItem(int position) {
+        Log.e("bothItem","bothItem");
         Fragment mFragment=null;
         FragmentManager mFragmentManager = getSupportFragmentManager();
         switch (position){
@@ -149,32 +180,122 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
                 else
                 {
                     Log.e("in else","in else");
-                    //remove shared prefrence
+                    logOutProcess();
                 }
                 break;
             default:
-              //  mFragment = MainFragment.newInstance(0);
+                //  mFragment = MainFragment.newInstance(0);
                 mFragment =new SimpleTabsActivity();
                 break;
         }
-
         if (mFragment != null){
             mFragmentManager.beginTransaction().replace(R.id.container, mFragment).commit();
         }
-        toolbar=getToolbar();
-
-        toolbar.setBackgroundColor(getResources().getColor(R.color.light_green));
-      //  @TargetApi()
-      //  toolbar.setElevation((float) 0.0);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.light_gray));
-        toolbar.inflateMenu(R.menu.menu_protoflio);
-//        TypefaceHelper.typeface(this);
-//        TypefaceCollection typeface=new TypefaceCollection.Builder()
-//                .set(Typeface.NORMAL,Typeface.createFromAsset(getAssets(),"fonts/DroidKufi-Regular.ttf"))
-//                .set(Typeface.BOLD, Typeface.createFromAsset(getAssets(), "fonts/DroidKufi-Bold.ttf"))
-//                .create();
-//        TypefaceHelper.init(typeface);
     }
+
+    private void workItem(int position) {
+        Log.e("workItem","workItem");
+        Fragment mFragment=null;
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        switch (position){
+            case 1:
+                Intent profileIntent = new Intent(ActicityWithSideMenu.this,ProfileActivity.class);
+                startActivity(profileIntent);
+                closeDrawer();
+                break;
+            case 2:
+                mFragment=new MyProjectListFragment();
+                break;
+//            case 3:
+//                Intent postIntent = new Intent(ActicityWithSideMenu.this,PostProjectMainActivity.class);
+//                startActivity(postIntent);
+//                closeDrawer();
+//                break;
+//            case 4:
+//                mFragment=new JobsFragment(true);
+//                break;
+            case 3:
+                Log.e("IsNotLogin","5");
+                if (IsNotLogin())
+                {
+                    Intent intent = new Intent(this,RegistrationActivity.class);
+                    startActivityForResult(intent, 0);
+                    Log.e("in if","in if");
+                }
+                else
+                {
+                    Log.e("in else","in else");
+                    logOutProcess();
+                }
+                break;
+            default:
+                //  mFragment = MainFragment.newInstance(0);
+                mFragment =new SimpleTabsActivity();
+                break;
+        }
+        if (mFragment != null){
+            mFragmentManager.beginTransaction().replace(R.id.container, mFragment).commit();
+        }
+    }
+
+    private void hireItem(int position) {
+        Log.e("hireItem","hireItem");
+        Fragment mFragment=null;
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        switch (position){
+            case 1:
+                Intent profileIntent = new Intent(ActicityWithSideMenu.this,ProfileActivity.class);
+                startActivity(profileIntent);
+                closeDrawer();
+                break;
+            case 2:
+                Intent postIntent = new Intent(ActicityWithSideMenu.this,PostProjectMainActivity.class);
+                startActivity(postIntent);
+                closeDrawer();
+                break;
+            case 3:
+                mFragment=new MyProjectListFragment();
+                break;
+//            case 4:
+//                mFragment=new JobsFragment(true);
+//                break;
+            case 4:
+                Log.e("IsNotLogin","5");
+                if (IsNotLogin())
+                {
+                    Intent intent = new Intent(this,RegistrationActivity.class);
+                    startActivityForResult(intent, 0);
+                    Log.e("in if","in if");
+                }
+                else
+                {
+                    Log.e("in else","in else");
+                    logOutProcess();
+                }
+                break;
+            default:
+                //  mFragment = MainFragment.newInstance(0);
+                mFragment =new SimpleTabsActivity();
+                break;
+        }
+        if (mFragment != null){
+            mFragmentManager.beginTransaction().replace(R.id.container, mFragment).commit();
+        }
+    }
+
+    private void logOutProcess() {
+        SharedPreferences sharedpreferences = getSharedPreferences("loginPrefrence", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove("user");
+        editor.apply();
+        String sharedString = sharedpreferences.getString("user", "Not login");
+        Log.e("sharedString",sharedString);
+        MyApplication appState = (MyApplication)getApplicationContext();
+        appState.setUser(null);
+        reload();
+
+    }
+
     private boolean IsNotLogin()
     {
         Log.e("IsNotLogin", "IsNotLogin");
@@ -236,7 +357,21 @@ public class ActicityWithSideMenu extends NavigationLiveo implements OnItemClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        with(this,1).recreate();
+        if(resultCode== Activity.RESULT_OK) {
+            reCreateSideMenu();
+        }
      //   toolbar.setElevation((float) 0.0);
+    }
+    public void reCreateSideMenu()
+    {
+        with(this,1).recreate();
+    }
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }

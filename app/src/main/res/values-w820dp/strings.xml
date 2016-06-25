@@ -93,4 +93,5 @@
     <string name="project_matrial_text">الماده المستخدمه</string>
     <string name="project_color_text">اللون</string>
     <string name="project_width_text">العرض المطلوب</string>
+    <string name="updateDate">تم تعديل البينات بنجاح</string>
 </resources>

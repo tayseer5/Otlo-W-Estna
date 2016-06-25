@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.SkillsManager;
@@ -247,7 +248,7 @@ Log.e("error",alertErrorMsg+"");
                 if (message.toString().contains("ture Insert")) {
                     loginProcess(users);
                 } else {
-                    Log.e("not reg", "ge");
+                    Toast.makeText(getActivity(), message.toString(), Toast.LENGTH_LONG).show();
                 }
 
                 break;

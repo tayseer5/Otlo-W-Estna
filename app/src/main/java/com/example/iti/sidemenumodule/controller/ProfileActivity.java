@@ -75,7 +75,11 @@ public class ProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.e("back press","back press");
+    }
     private boolean IsNotLogin()
     {
         Log.e("IsNotLogin", "IsNotLogin");

@@ -25,7 +25,24 @@ public class Users {
     private String identefire;
     private String token;
     private String mobile;
-    private String phone;
+
+    public ArrayList<Phoneofuser> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(ArrayList<Phoneofuser> phone) {
+        this.phone = phone;
+    }
+
+    public Set<Portofolioforuser> getPortofolioforusers() {
+        return portofolioforusers;
+    }
+
+    public void setPortofolioforusers(Set<Portofolioforuser> portofolioforusers) {
+        this.portofolioforusers = portofolioforusers;
+    }
+
+    private ArrayList<Phoneofuser> phone;
 
     public String getMobile() {
         return mobile;
@@ -35,13 +52,7 @@ public class Users {
         this.mobile = mobile;
     }
 
-    public String getPhone() {
-        return phone;
-    }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     private ArrayList<Skills> userSkills;
 

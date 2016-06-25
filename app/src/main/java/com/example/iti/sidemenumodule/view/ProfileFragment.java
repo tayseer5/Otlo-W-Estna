@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,10 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
+import com.example.iti.sidemenumodule.controller.ActicityWithSideMenu;
 import com.example.iti.sidemenumodule.controller.MyApplication;
 import com.example.iti.sidemenumodule.controller.ProfileActivity;
 import com.example.iti.sidemenumodule.controller.ProtoflioActivity;
@@ -60,6 +63,7 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
 
     View rootView;
     FragmentActivity myContext;
+    String data="";
     Users user;
     Button portfolioButton;
     Button chooseSkills;
@@ -97,6 +101,29 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_BACK) {
+                    Intent returnIntent = new Intent();
+                    if (data.toString().equals("true")) {
+                        //after click back
+
+                        getActivity().setResult(Activity.RESULT_OK,returnIntent);
+                        getActivity().onBackPressed();
+                    }
+                    else
+                    {
+                        getActivity().setResult(Activity.RESULT_CANCELED,returnIntent);
+                        getActivity().onBackPressed();
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+        });
         TypefaceHelper.typeface(rootView);
         if(user!=null)
         {
@@ -130,7 +157,7 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
             summary = (EditText) rootView.findViewById(R.id.summary_edittext);
             if (user.getSummery()!=null&&!user.getSummery().isEmpty())
             {
-                //cannot be null
+                summary.setText(user.getSummery());
             }
             governorate = (EditText) rootView.findViewById(R.id.governorate_edittext);
             if (user.getGovernorate()!=null&&!user.getGovernorate().isEmpty())
@@ -276,13 +303,40 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
         {
             case 2:
                 Log.e("updat profile S",data.toString());
+                if (data.toString().equals("ture Insert"))
+                {
+                 getUserObject();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), data.toString(), Toast.LENGTH_LONG).show();
+                }
                 break;
             case 3:
                 //skills dialog logic
                 Log.e("update skills s",data+"");
                 showSkillsDialog((ArrayList<Skills>) data);
                 break;
+            case 4:
+                Log.e("4",data+"");
+                if (data.toString().equals("true")) {
+
+                    this.data=data.toString();
+                    Toast.makeText(getActivity(), getString(R.string.updateDate), Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Log.e("in else","in else");
+                    Toast.makeText(getActivity(), data.toString(), Toast.LENGTH_LONG).show();
+                }
+                break;
         }
+    }
+
+    private void getUserObject ()
+    {
+        UserManager userManager = new UserManager(this.getActivity(),this);
+        userManager.getUserObject(user.getUserId(), 4);
     }
     private void showSkillsDialog(ArrayList<Skills> allSkills)
     {
@@ -319,13 +373,20 @@ public class ProfileFragment extends Fragment implements AfterPraseResult,Dialog
         switch (code)
         {
             case 2:
-                Log.e("updat profile e",errorMessage.toString());
+                Log.e("updat profile e",errorMessage);
                 break;
             case 3:
                 //skills dialog logic
                 Log.e("update skills e",errorMessage+"");
 
                 break;
+            case 4:
+                Log.e("4",data+"");
+                    this.data=errorMessage;
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+                break;
+
+
         }
 
     }

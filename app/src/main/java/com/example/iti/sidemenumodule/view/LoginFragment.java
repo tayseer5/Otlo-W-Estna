@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.iti.sidemenumodule.R;
 import com.example.iti.sidemenumodule.daos.UserManager;
@@ -86,7 +87,7 @@ public class LoginFragment extends Fragment implements AfterPraseResult {
 
     @Override
     public void errorParesResult(String errorMessage, int code) {
-        Log.e("errorMessage",errorMessage);
+        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
         //show alert
 
     }

@@ -12,6 +12,7 @@ public class URLManager {
     public static String postProjectURL=ip+"/itiProject/rest/project/Project";
     public static String getMyJobsURL=ip+"/itiProject/rest/project/projectsOfUserHire";
     public static String getWorkJobsURL=ip+"/itiProject/rest/project/projectsOfUserWork";
+    public static String getUserObjectURL= ip+"/itiProject/rest/user/getUser";
     public static final int postConnectionType = 0;
     public static final int  fail = 0;
     public static final int success = 1;

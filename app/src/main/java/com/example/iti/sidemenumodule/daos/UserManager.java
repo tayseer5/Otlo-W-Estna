@@ -5,16 +5,23 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.iti.sidemenumodule.controller.MyApplication;
+import com.example.iti.sidemenumodule.model.Phoneofuser;
+import com.example.iti.sidemenumodule.model.Skills;
 import com.example.iti.sidemenumodule.model.Users;
 import com.example.iti.sidemenumodule.network_manager.AfterAsynchronous;
 import com.example.iti.sidemenumodule.network_manager.AfterPraseResult;
 import com.example.iti.sidemenumodule.network_manager.HttpClientConn;
 import com.example.iti.sidemenumodule.network_manager.URLManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ITI on 03/06/2016.
@@ -41,7 +48,7 @@ public class UserManager implements AfterAsynchronous {
         RequestParams requestParam = new RequestParams();
         requestParam.add("email",email );
         requestParam.add("pass",password);
-        loginConnection.RequestService(URLManager.loginURL, requestParam, 0, null, URLManager.postConnectionType);
+        loginConnection.RequestService(URLManager.loginURL, requestParam, code, null, URLManager.postConnectionType);
     }
 
     public void registration(Users userData,int code) {
@@ -75,13 +82,10 @@ public class UserManager implements AfterAsynchronous {
             skills="1,";
         }
         requestParam.add("skill", skills);
-        registrationConnection.RequestService(URLManager.registrationURL, requestParam, 1, null, URLManager.postConnectionType);
+        registrationConnection.RequestService(URLManager.registrationURL, requestParam, code, null, URLManager.postConnectionType);
 
     }
 
-    public void logOut() {
-
-    }
 
     public void updateUser(Users userNewData, int code) {
         Log.e("here","8");
@@ -129,13 +133,25 @@ public class UserManager implements AfterAsynchronous {
         requestParam.add("content",encoded_image);
         loginConnection.RequestService("http://10.0.3.2:8084/itiProject/rest/hassan/mona", requestParam, 5, null, URLManager.postConnectionType);
     }
-
+    public  void getUserObject (int userId, int code)
+    { this.code=code;
+        if (userId!=0)
+        {
+            HttpClientConn userObjectConnection = new HttpClientConn(this, context);
+            userObjectConnection.RequestService(URLManager.getUserObjectURL+"?uId="+userId, null, code, null, URLManager.getConnectionType);
+        }
+        else
+        {
+            afterPraseResult.afterParesResult("Enter valid id",code);
+        }
+    }
     @Override
     public void afterExecute(String response, int code) {
-        Log.e("code s", code + "");
-        code=this.code;
 
-        switch (code) {
+        this.code=code;
+        Log.e("code s", code + "");
+        Log.e("code ss", this.code + "");
+        switch (this.code) {
             case 0:
                 //call login process
                 loginProcess(response,code);
@@ -146,15 +162,12 @@ public class UserManager implements AfterAsynchronous {
                 break;
             case 2:
                 //call update process
+                updateProcess(response,code);
                 Log.e("update", response);
                 break;
-            case 3:
-                //test upload image
-
-                break;
-            case 5 :
-                Log.e("response",response);
-                afterPraseResult.afterParesResult(response,code);
+            case 4 :
+                Log.e("user obj", response);
+                getUserObjctProcess(response,code);
                 break;
             default:
                 break;
@@ -176,20 +189,68 @@ public class UserManager implements AfterAsynchronous {
                 Log.e("errorMessage", errorMessage);
                 break;
             case 2:
+                updateProcess(errorMessage,code);
                 Log.e("update", errorMessage);
                 break;
-            case 3:
-                //test upload image
-
-                break;
-            case 5 :
-                Log.e("errorMessage",errorMessage);
-                afterPraseResult.afterParesResult(errorMessage,code);
+            case 4 :
+                Log.e("user obj", errorMessage);
+                 getUserObjctProcess(errorMessage,code);
                 break;
             default:
                 break;
 
         }
+    }
+
+    private void getUserObjctProcess(String response, int code) {
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+            Log.e("", response);
+            JsonObject myJsonObject = parser.parse(response).getAsJsonObject();
+            JsonElement message = myJsonObject.get("satatus");
+            if (message.getAsString().trim().contains("true")) {
+                JsonObject user = myJsonObject.getAsJsonObject("user");
+               JsonArray skilltables = user.getAsJsonArray("skilltables");
+                Type skillsCollection = new TypeToken<List<Skills>>() {
+                }.getType();
+                ArrayList<Skills> skillsOfUser = gson.fromJson(skilltables, skillsCollection);
+                JsonArray phoneofusers = user.getAsJsonArray("phoneofusers");
+                Type phoneCollection = new TypeToken<List<Phoneofuser>>() {
+                }.getType();
+                ArrayList<Phoneofuser> phoneOfUser = gson.fromJson(phoneofusers, phoneCollection);
+                if (user != null) {
+                    SharedPreferences sharedpreferences = context.getSharedPreferences("loginPrefrence", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor userPref = sharedpreferences.edit();
+                    String userJsonObj = gson.toJson(user);
+                    userPref.putString("user", userJsonObj);
+                    Users userObj2 = gson.fromJson(userJsonObj, Users.class);
+                userObj2.setUserSkills(skillsOfUser);
+                userObj2.setPhone(phoneOfUser);
+                    Log.e("json1", userJsonObj);
+                    Log.e("obj1", userObj2.getUserEmail());
+                Log.e("obj2", userObj2.getUserSkills().isEmpty()+" "+userObj2.getUserSkills().size());
+                    userPref.commit();
+                    MyApplication appState = (MyApplication) context.getApplicationContext();
+                    appState.setUser(userObj2);
+                    afterPraseResult.afterParesResult("true", code);
+
+                } else {
+                    afterPraseResult.errorParesResult("some thing wrong happend", code);
+                }
+            } else {
+                afterPraseResult.errorParesResult("your mail or password is wrong", code);
+            }
+        }
+
+
+    private  void updateProcess(String response,int code)
+    {
+        JsonParser parser = new JsonParser();
+        JsonObject myJsonObject = parser.parse(response).getAsJsonObject();
+        Log.e("updateProcess",response);
+        JsonElement output =myJsonObject.get("output");
+       afterPraseResult.afterParesResult(output.getAsString().trim(),code);
     }
     private void registrationProcess (String response,int code)
     {
@@ -204,18 +265,29 @@ public class UserManager implements AfterAsynchronous {
     {
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
-        Log.e("loginProcess",response);
+        Log.e("loginProcess dddddddddd",response);
         JsonObject myJsonObject = parser.parse(response).getAsJsonObject();
         JsonElement message =myJsonObject.get("message");
         if (message.getAsString().trim().contains("login Succesfuly")) {
             JsonObject user = myJsonObject.getAsJsonObject("user");
             if (user!=null)
             {
+
                 SharedPreferences sharedpreferences =context.getSharedPreferences("loginPrefrence", Context.MODE_PRIVATE);
                 SharedPreferences.Editor userPref = sharedpreferences.edit();
                 String userJsonObj = gson.toJson(user);
                 userPref.putString("user",userJsonObj);
                 Users userObj2 = gson.fromJson(userJsonObj,Users.class);
+                JsonArray skilltables = user.getAsJsonArray("skilltables");
+                Type skillsCollection = new TypeToken<List<Skills>>() {
+                }.getType();
+                ArrayList<Skills> skillsOfUser = gson.fromJson(skilltables, skillsCollection);
+                JsonArray phoneofusers = user.getAsJsonArray("phoneofusers");
+                Type phoneCollection = new TypeToken<List<Phoneofuser>>() {
+                }.getType();
+                ArrayList<Phoneofuser> phoneOfUser = gson.fromJson(phoneofusers, phoneCollection);
+                userObj2.setUserSkills(skillsOfUser);
+                userObj2.setPhone(phoneOfUser);
                 Log.e("json1",userJsonObj);
                 Log.e("json",userObj2.getUserEmail());
                 userPref.commit();
